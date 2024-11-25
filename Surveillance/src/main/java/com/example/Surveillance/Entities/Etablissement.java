@@ -7,21 +7,28 @@ import lombok.Data;
 import java.util.List;
 
 @Entity
-@Table(name = "departements")
 @Data
-public class Departement {
+@Table(name = "etablissement")
+public class Etablissement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 50)
+    private String localisation;
+
     @Column(nullable = false, length = 50)
     private String nom;
-    @Column(nullable= false ,length = 25)
-    private String specialité ;
+
+    @Column(nullable = false, length = 50)
+    private String universite;
+
     @JsonIgnore
-    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
-    private List<Enseignant> enseignants;
-    @ManyToOne
-    @JoinColumn(name = "etablissement_id")
-    private Etablissement etablissement;
+    @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
+    private List<Departement> ListDepartement;
+
 }
+
+
+

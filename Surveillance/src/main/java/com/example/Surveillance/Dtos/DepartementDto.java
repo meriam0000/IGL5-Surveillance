@@ -1,7 +1,5 @@
 package com.example.Surveillance.Dtos;
 
-import com.example.Surveillance.Entities.Enseignant;
-import com.example.Surveillance.Enums.Specialite;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -11,7 +9,8 @@ public class DepartementDto {
 
     private Long id;
     private String nom;
-    private Specialite specialité ;
+    private String specialité ;
     @JsonIgnore
     private List<EnseignantDto> enseignants;
+    private EtablissementDto etablissement;
 }
