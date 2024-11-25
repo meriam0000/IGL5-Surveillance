@@ -1,7 +1,8 @@
-package com.example.Surveillance.controllers;
+package com.example.Surveillance.Controllers;
 
-import com.example.Surveillance.entities.Salle;
-import com.example.Surveillance.services.SalleService;
+import com.example.Surveillance.Entities.Salle;
+import com.example.Surveillance.ServiceImp.SalleServiceImp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import java.util.List;
 public class SalleController {
 
     @Autowired
-    private SalleService salleService;
+    private SalleServiceImp salleService;
 
     @GetMapping
     public List<Salle> getAllSalles() {

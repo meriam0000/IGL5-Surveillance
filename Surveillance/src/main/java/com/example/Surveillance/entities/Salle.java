@@ -1,4 +1,4 @@
-package com.example.Surveillance.entities;
+package com.example.Surveillance.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
