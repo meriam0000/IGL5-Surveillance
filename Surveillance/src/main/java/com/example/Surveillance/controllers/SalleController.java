@@ -2,6 +2,7 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.SalleDto;
 import com.example.Surveillance.Services.SalleService;
+import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,8 @@ public class SalleController {
     final private SalleService salleService;
 
     @GetMapping
-    public ResponseEntity<List<SalleDto>> findAll() {
-        List<SalleDto> salles = salleService.getAllSalles();
+    public ResponseEntity<PageResponse<SalleDto>> findAll(@RequestParam int page, @RequestParam int size) {
+        PageResponse<SalleDto> salles = salleService.getAllSalles(page,size);
         return ResponseEntity.ok(salles);
     }
     @PostMapping
