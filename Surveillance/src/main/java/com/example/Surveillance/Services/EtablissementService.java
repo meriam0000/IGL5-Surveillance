@@ -1,11 +1,11 @@
 package com.example.Surveillance.Services;
 
 import com.example.Surveillance.Dtos.EtablissementDto;
+import com.example.Surveillance.Util.PageResponse;
 
-import java.util.List;
 
 public interface EtablissementService {
-    List<EtablissementDto> getAllEtablissement();
+    PageResponse<EtablissementDto> getAllEtablissement(int page , int size);
 
     EtablissementDto addEtablissement(EtablissementDto etablissementDto);
 

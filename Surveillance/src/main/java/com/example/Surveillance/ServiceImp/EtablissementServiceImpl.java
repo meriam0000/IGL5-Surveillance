@@ -1,15 +1,17 @@
 package com.example.Surveillance.ServiceImp;
 
-import com.example.Surveillance.Dtos.DepartementDto;
 import com.example.Surveillance.Dtos.EtablissementDto;
 import com.example.Surveillance.Entities.Departement;
-import com.example.Surveillance.Entities.Enseignant;
 import com.example.Surveillance.Entities.Etablissement;
 import com.example.Surveillance.Repositories.EtablissementRepository;
 import com.example.Surveillance.Services.EtablissementService;
+import com.example.Surveillance.Util.PageResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,13 +20,30 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class EtablissementServiceImpl implements EtablissementService {
-
     final EtablissementRepository etablissementRepository;
     final ModelMapper modelMapper;
+
     @Override
-    public List<EtablissementDto> getAllEtablissement() {
-        return etablissementRepository.findAll()
-                .stream().map(etablissement-> modelMapper.map(etablissement, EtablissementDto.class)).toList();
+    public PageResponse<EtablissementDto> getAllEtablissement(int page , int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Etablissement> etablissementPage = etablissementRepository.findAll(pageable);
+
+        List<EtablissementDto> etablissementDtoList = etablissementPage.getContent()
+                .stream()
+                .map(etablissement -> modelMapper.map(etablissement, EtablissementDto.class))
+                .toList();
+
+        return new PageResponse<>(
+                etablissementDtoList,
+                etablissementPage.getNumber(),
+                etablissementPage.getSize(),
+                etablissementPage.getTotalElements(),
+                etablissementPage.getTotalPages(),
+                etablissementPage.isFirst(),
+                etablissementPage.isLast()
+        );
+
     }
 
     @Override
@@ -58,4 +77,9 @@ public class EtablissementServiceImpl implements EtablissementService {
     public void deleteEtablissement(Long id) {
         etablissementRepository.deleteById(id);
     }
+
 }
+
+
+
+

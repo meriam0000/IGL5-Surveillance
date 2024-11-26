@@ -2,12 +2,12 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.EnseignantDto;
 import com.example.Surveillance.Services.EnseignantService;
+import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RestController("/api/v1/enseignants")
@@ -16,10 +16,15 @@ public class EnseignantController {
     final private EnseignantService enseignantService;
 
     @GetMapping
-    public ResponseEntity<List<EnseignantDto>> findAll() {
-        List<EnseignantDto> enseignants = enseignantService.getAllEnseignants();
+    public ResponseEntity<PageResponse<EnseignantDto>> findAll(
+            @RequestParam int page,
+            @RequestParam int size)
+    {
+
+        PageResponse<EnseignantDto> enseignants = enseignantService.getAllEnseignants(page, size);
         return ResponseEntity.ok(enseignants);
     }
+
     @PostMapping
     public ResponseEntity<EnseignantDto> addEnseignant(@RequestBody EnseignantDto enseignantDto) {
         return ResponseEntity.ok(enseignantService.addEnseignant(enseignantDto));

@@ -6,9 +6,13 @@ import com.example.Surveillance.Entities.Enseignant;
 import com.example.Surveillance.Entities.Etablissement;
 import com.example.Surveillance.Repositories.DepartementRepository;
 import com.example.Surveillance.Services.DepartementService;
+import com.example.Surveillance.Util.PageResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +24,28 @@ public class DepartementServiceImpl  implements DepartementService {
     final ModelMapper modelMapper;
 
     @Override
-    public List<DepartementDto> getAllDepartements() {
-        return departeementRepository.findAll()
-                .stream().map(departement -> modelMapper.map(departement, DepartementDto.class)).toList();
+    public PageResponse<DepartementDto> getAllDepartements(int page , int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        // Fetch paginated data from the repository
+        Page<Departement> departementPage = departeementRepository.findAll(pageable);
+
+        // Map entities to DTOs
+        List<DepartementDto> departementDtoList = departementPage.getContent()
+                .stream()
+                .map(departement -> modelMapper.map(departement,DepartementDto.class))
+                .toList();
+
+        // Create and return a PageResponse object
+        return new PageResponse<>(
+                departementDtoList,
+                departementPage.getNumber(),
+                departementPage.getSize(),
+                departementPage.getTotalElements(),
+                departementPage.getTotalPages(),
+                departementPage.isFirst(),
+                departementPage.isLast()
+        );
     }
 
     @Override
@@ -39,16 +62,16 @@ public class DepartementServiceImpl  implements DepartementService {
     @Override
     public DepartementDto updateDepartement(Long id, DepartementDto departementDto) {
 
-            Departement departement = departeementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Departement found with ID:"+id));
-            departement.setNom(departementDto.getNom());
-            departement.setId(departement.getId());
-            departement.setEnseignants(
+        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Departement found with ID:"+id));
+        departement.setNom(departementDto.getNom());
+        departement.setId(departement.getId());
+        departement.setEnseignants(
                 departementDto.getEnseignants().stream()
                         .map(enseignantDto -> modelMapper.map(enseignantDto, Enseignant.class))
                         .toList()
-            );
-            departement.setSpecialité(departementDto.getSpecialité());
-            departement.setEtablissement(modelMapper.map(departementDto.getEtablissement(),Etablissement.class));
+        );
+        departement.setSpecialité(departementDto.getSpecialité());
+        departement.setEtablissement(modelMapper.map(departementDto.getEtablissement(),Etablissement.class));
 
         return modelMapper.map(departeementRepository.save(departement), DepartementDto.class);
     }

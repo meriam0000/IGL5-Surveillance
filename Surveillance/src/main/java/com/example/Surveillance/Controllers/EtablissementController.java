@@ -3,12 +3,12 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.EtablissementDto;
 import com.example.Surveillance.Services.EtablissementService;
+import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @Controller
 @RestController("/api/v1/etablissement")
@@ -17,8 +17,8 @@ public class EtablissementController {
     final private EtablissementService etablissementService;
 
     @GetMapping
-    public ResponseEntity<List<EtablissementDto>> findAll() {
-        List<EtablissementDto> etablissement = etablissementService.getAllEtablissement();
+    public ResponseEntity<PageResponse<EtablissementDto>> findAll(@RequestParam int page,@RequestParam int size){
+        PageResponse<EtablissementDto> etablissement = etablissementService.getAllEtablissement(page, size);
         return ResponseEntity.ok(etablissement);
     }
     @PostMapping
