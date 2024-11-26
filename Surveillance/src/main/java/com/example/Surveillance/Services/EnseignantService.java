@@ -1,11 +1,12 @@
 package com.example.Surveillance.Services;
 
-import com.example.Surveillance.Dtos.EnseignantDto;
 
-import java.util.List;
+import com.example.Surveillance.Dtos.EnseignantDto;
+import com.example.Surveillance.Util.PageResponse;
+
 
 public interface EnseignantService {
-    List<EnseignantDto> getAllEnseignants();
+    PageResponse<EnseignantDto> getAllEnseignants( int page, int size);
 
     EnseignantDto addEnseignant(EnseignantDto enseignantDto);
 
