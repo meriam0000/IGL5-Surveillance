@@ -1,11 +1,10 @@
 package com.example.Surveillance.Dtos;
 
-import com.example.Surveillance.Entities.Departement;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 public class EtablissementDto {
 
     private Long id;
