@@ -6,7 +6,6 @@ import lombok.*;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class SuperAdmin extends User {
