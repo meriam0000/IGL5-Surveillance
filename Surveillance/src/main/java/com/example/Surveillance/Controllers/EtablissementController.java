@@ -14,7 +14,8 @@ import java.util.List;
 
 
 @Controller
-@RestController("/api/v1/etablissement")
+@RestController
+@RequestMapping("/api/v1/etablissement")
 @AllArgsConstructor
 public class EtablissementController {
     final private EtablissementService etablissementService;
