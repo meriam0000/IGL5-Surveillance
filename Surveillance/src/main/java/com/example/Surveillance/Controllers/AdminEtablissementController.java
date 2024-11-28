@@ -2,7 +2,6 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Entities.AdminEtablissement;
 import com.example.Surveillance.Services.AdminEtablissementService;
-import com.example.Surveillance.myannotations.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ public class AdminEtablissementController {
     private AdminEtablissementService adminEtablissementService;
 
     // Create AdminEtablissement
-    @RequiresPermissions
     @PostMapping
     public ResponseEntity<AdminEtablissement> createAdminEtablissement(@RequestBody AdminEtablissement adminEtablissement) {
         AdminEtablissement createdAdminEtablissement = adminEtablissementService.saveAdminEtablissement(adminEtablissement);
@@ -26,7 +24,6 @@ public class AdminEtablissementController {
     }
 
     // Get All AdminEtablissements
-    @RequiresPermissions
     @GetMapping
     public ResponseEntity<List<AdminEtablissement>> getAllAdminEtablissements() {
         List<AdminEtablissement> adminEtablissements = adminEtablissementService.findAllAdminEtablissements();
@@ -34,7 +31,6 @@ public class AdminEtablissementController {
     }
 
     // Get AdminEtablissement by ID
-    @RequiresPermissions
     @GetMapping("/{id}")
     public ResponseEntity<AdminEtablissement> getAdminEtablissementById(@PathVariable Long id) {
         AdminEtablissement adminEtablissement = adminEtablissementService.findAdminEtablissementById(id);
@@ -46,7 +42,6 @@ public class AdminEtablissementController {
     }
 
     // Update AdminEtablissement
-    @RequiresPermissions
     @PutMapping("/{id}")
     public ResponseEntity<AdminEtablissement> updateAdminEtablissement(@PathVariable Long id, @RequestBody AdminEtablissement adminEtablissement) {
         AdminEtablissement updatedAdminEtablissement = adminEtablissementService.updateAdminEtablissement(id, adminEtablissement);
@@ -54,7 +49,6 @@ public class AdminEtablissementController {
     }
 
     // Delete AdminEtablissement
-    @RequiresPermissions
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAdminEtablissement(@PathVariable Long id) {
         adminEtablissementService.deleteAdminEtablissement(id);

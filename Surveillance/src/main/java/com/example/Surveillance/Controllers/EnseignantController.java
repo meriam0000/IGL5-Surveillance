@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RestController("/api/v1/enseignants")
+@RestController
+@RequestMapping("/api/v1/enseignants")
 @AllArgsConstructor
 public class EnseignantController {
     final private EnseignantService enseignantService;

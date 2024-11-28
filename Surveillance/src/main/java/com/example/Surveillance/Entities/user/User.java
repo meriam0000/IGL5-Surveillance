@@ -1,11 +1,13 @@
 package com.example.Surveillance.Entities.user;
 
+import com.example.Surveillance.Entities.PermissionGroup;
 import com.example.Surveillance.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,13 +29,16 @@ public class User implements UserDetails {
     private String FullName;
     private String email;
     private String password;
-
+    @Column(unique = true, nullable = false) // Add constraints for uniqueness and non-null values
+    private String username; // NEW FIELD
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
-
+    @ManyToOne
+    @JoinColumn(name = "permission_group_id") // Foreign key to PermissionGroup
+    private PermissionGroup permissionGroup;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
@@ -68,4 +73,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
