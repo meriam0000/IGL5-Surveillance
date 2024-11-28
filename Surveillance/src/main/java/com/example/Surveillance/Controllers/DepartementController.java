@@ -12,40 +12,40 @@ import java.util.List;
 
 
 @Controller
-@RestController
-@RequestMapping("/api/v1/departement")
+@RestController("/api/v1/departement")
 @AllArgsConstructor
 public class DepartementController {
 
-    final private DepartementService departementService;
-    @GetMapping
-    public ResponseEntity<List<DepartementDto>> findAll( Authentication authentication){
-        List<DepartementDto> departement = departementService.getAllDepartements(authentication);
-        return ResponseEntity.ok(departement);
-    }
-    @PostMapping
-    public ResponseEntity<DepartementDto> addDepartement(@RequestBody DepartementDto DepartementDto){
-        return ResponseEntity.ok(departementService.addDepartement(DepartementDto));
-    }
+        final private DepartementService departementService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DepartementDto> findById(@PathVariable Long id) {
-        DepartementDto departement = departementService.getDepartementById(id);
-        return ResponseEntity.ok(departement);
-    }
+        @GetMapping
+        public ResponseEntity<List<DepartementDto>> findAll(Authentication authentication) {
+            List<DepartementDto> departement = departementService.getAllDepartements(authentication);
+            return ResponseEntity.ok(departement);
+        }
+        @PostMapping
+        public ResponseEntity<DepartementDto> addDepartement(@RequestBody DepartementDto DepartementDto) {
+            return ResponseEntity.ok(departementService.addDepartement(DepartementDto));
+        }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<DepartementDto> UpdateDepartement(
-            @PathVariable Long id,
-            @RequestBody DepartementDto departementDto
-    ) {
-        DepartementDto updatedDepartement = departementService.updateDepartement(id, departementDto);
-        return ResponseEntity.ok(updatedDepartement);
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remove(@PathVariable Long id) {
-        departementService.deleteDepartement(id);
-        return ResponseEntity.ok().build();
-    }
+        @GetMapping("/{id}")
+        public ResponseEntity<DepartementDto> findById(@PathVariable Long id) {
+            DepartementDto departement = departementService.getDepartementById(id);
+            return ResponseEntity.ok(departement);
+        }
 
-}
+        @PutMapping("/{id}")
+        public ResponseEntity<DepartementDto> UpdateEnseignant(
+                @PathVariable Long id,
+                @RequestBody DepartementDto departementDto
+        ) {
+            DepartementDto updatedDepartement = departementService.updateDepartement(id, departementDto);
+            return ResponseEntity.ok(updatedDepartement);
+        }
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> remove(@PathVariable Long id) {
+            departementService.deleteDepartement(id);
+            return ResponseEntity.ok().build();
+        }
+
+    }

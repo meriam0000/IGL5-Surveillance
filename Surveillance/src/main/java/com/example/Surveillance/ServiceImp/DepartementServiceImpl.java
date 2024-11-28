@@ -36,10 +36,11 @@ public class DepartementServiceImpl  implements DepartementService {
                     .map(departement -> modelMapper.map(departement,DepartementDto.class))
                     .toList();
         } else if (user.getRole().getPermissions().contains(Permission.ADMIN_DEPARTEMENT_READ)){
-            return departeementRepository.findByAdminDepartements(List.of((AdminDepartement) user))
-                    .stream()
-                    .map(departement -> modelMapper.map(departement,DepartementDto.class))
-                    .toList();
+            AdminDepartement adminDepartement = (AdminDepartement) user;
+            return List.of(modelMapper
+                    .map(adminDepartement.getDepartement(),DepartementDto.class));
+
+
         } else if(user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_READ)){
             AdminEtablissement adminEtablissement = (AdminEtablissement) user;
             List<Departement> departementList=adminEtablissement.getEtablissement().getListDepartement();

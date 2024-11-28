@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EtablissementRepository extends JpaRepository<Etablissement, Long> {
-    Page<Etablissement> findAll(Pageable pageable);
 }
 
