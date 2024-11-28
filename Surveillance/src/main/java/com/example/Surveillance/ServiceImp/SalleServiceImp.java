@@ -1,17 +1,19 @@
 package com.example.Surveillance.ServiceImp;
 
 import com.example.Surveillance.Dtos.SalleDto;
+import com.example.Surveillance.Entities.AdminDepartement;
+import com.example.Surveillance.Entities.AdminEtablissement;
 import com.example.Surveillance.Entities.Departement;
 import com.example.Surveillance.Entities.Salle;
+import com.example.Surveillance.Entities.user.Permission;
+import com.example.Surveillance.Entities.user.User;
+import com.example.Surveillance.Exception.ForbiddenException;
 import com.example.Surveillance.Repositories.SalleRepository;
 import com.example.Surveillance.Services.SalleService;
-import com.example.Surveillance.Util.PageResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -21,24 +23,29 @@ public class SalleServiceImp implements SalleService {
     final SalleRepository salleRepository;
     final ModelMapper modelMapper;
     @Override
-    public PageResponse<SalleDto> getAllSalles(int page , int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Salle> sallePage = salleRepository.findAll(pageable);
-
-        List<SalleDto> salleDtoList = sallePage.getContent()
+    public List<SalleDto> getAllSalles(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        if(user.getRole().getPermissions().contains(Permission.SUPERADMIN_READ)){
+        return salleRepository.findAll()
                 .stream()
                 .map(salle -> modelMapper.map(salle, SalleDto.class))
-                .toList();
+                .toList();}
+        else if(user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_READ)){
+            AdminEtablissement adminEtablissement = (AdminEtablissement) user;
+            return adminEtablissement.getEtablissement().getListDepartement().stream().flatMap(departement -> departement.getSalles().stream()).toList().stream()
+                    .map(salle -> modelMapper.map(salle, SalleDto.class)).toList();
+        }
 
-        return new PageResponse<>(
-                salleDtoList,
-                sallePage.getNumber(),
-                sallePage.getSize(),
-                sallePage.getTotalElements(),
-                sallePage.getTotalPages(),
-                sallePage.isFirst(),
-                sallePage.isLast()
-        );
+        else if(user.getRole().getPermissions().contains(Permission.ADMIN_DEPARTEMENT_READ)){
+            AdminDepartement adminDepartement = (AdminDepartement) user;
+            return adminDepartement.getDepartement().getSalles().stream().map(salle -> modelMapper.map(salle, SalleDto.class)).toList();
+
+        }
+        else{
+            throw new ForbiddenException("User does not have permission to view Salles");
+
+        }
+
     }
     @Override
     public SalleDto addSalle(SalleDto salleDto) {

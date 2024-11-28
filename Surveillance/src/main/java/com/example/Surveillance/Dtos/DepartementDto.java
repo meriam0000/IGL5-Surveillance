@@ -10,7 +10,8 @@ public class DepartementDto {
     private Long id;
     private String nom;
     private String specialité ;
+    private EtablissementDto etablissement;
     @JsonIgnore
     private List<EnseignantDto> enseignants;
-    private EtablissementDto etablissement;
+
 }

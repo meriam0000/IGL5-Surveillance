@@ -2,12 +2,13 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.DepartementDto;
 import com.example.Surveillance.Services.DepartementService;
-import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @Controller
@@ -16,14 +17,13 @@ import org.springframework.web.bind.annotation.*;
 public class DepartementController {
 
     final private DepartementService departementService;
-
     @GetMapping
-    public ResponseEntity<PageResponse<DepartementDto>> findAll(@RequestParam int page,@RequestParam int size) {
-        PageResponse <DepartementDto> departement = departementService.getAllDepartements(page, size);
+    public ResponseEntity<List<DepartementDto>> findAll( Authentication authentication){
+        List<DepartementDto> departement = departementService.getAllDepartements(authentication);
         return ResponseEntity.ok(departement);
     }
     @PostMapping
-    public ResponseEntity<DepartementDto> addDepartement(@RequestBody DepartementDto DepartementDto) {
+    public ResponseEntity<DepartementDto> addDepartement(@RequestBody DepartementDto DepartementDto){
         return ResponseEntity.ok(departementService.addDepartement(DepartementDto));
     }
 
@@ -34,7 +34,7 @@ public class DepartementController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DepartementDto> UpdateEnseignant(
+    public ResponseEntity<DepartementDto> UpdateDepartement(
             @PathVariable Long id,
             @RequestBody DepartementDto departementDto
     ) {

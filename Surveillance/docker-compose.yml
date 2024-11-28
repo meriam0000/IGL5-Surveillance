@@ -1,0 +1,23 @@
+services:
+  postgres:
+    container_name: postgres-container
+    image: postgres:12
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: surveillance
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+volumes:
+    db-data:
+      driver: local
+
+
+networks:
+  app-network:
+    driver: bridge

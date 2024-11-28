@@ -8,9 +8,9 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class AdminDepartement extends User {
     @ManyToOne
     @JoinColumn(name = "departement_id", nullable = false)
     private Departement departement;
+
 }

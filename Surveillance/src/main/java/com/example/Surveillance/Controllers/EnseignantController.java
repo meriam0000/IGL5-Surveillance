@@ -2,11 +2,13 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.EnseignantDto;
 import com.example.Surveillance.Services.EnseignantService;
-import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -16,12 +18,10 @@ public class EnseignantController {
     final private EnseignantService enseignantService;
 
     @GetMapping
-    public ResponseEntity<PageResponse<EnseignantDto>> findAll(
-            @RequestParam int page,
-            @RequestParam int size)
+    public ResponseEntity<List<EnseignantDto>> findAll(Authentication authentication)
     {
 
-        PageResponse<EnseignantDto> enseignants = enseignantService.getAllEnseignants(page, size);
+        List<EnseignantDto> enseignants = enseignantService.getAllEnseignants(authentication);
         return ResponseEntity.ok(enseignants);
     }
 

@@ -1,5 +1,6 @@
 package com.example.Surveillance.Entities.user;
 
+import com.example.Surveillance.Entities.Etablissement;
 import com.example.Surveillance.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Integer id;
+    private Long id;
     private String firstname;
     private String FullName;
     private String email;
@@ -33,6 +34,9 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -3,7 +3,6 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Entities.SuperAdmin;
 import com.example.Surveillance.Services.SuperAdminService;
-import com.example.Surveillance.myannotations.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +18,6 @@ public class SuperAdminController {
     private SuperAdminService superAdminService;
 
     // Create SuperAdmin
-    @RequiresPermissions
     @PostMapping
     public ResponseEntity<SuperAdmin> createSuperAdmin(@RequestBody SuperAdmin superAdmin) {
         SuperAdmin createdSuperAdmin = superAdminService.saveSuperAdmin(superAdmin);
@@ -27,7 +25,6 @@ public class SuperAdminController {
     }
 
     // Get All SuperAdmins
-    @RequiresPermissions
     @GetMapping
     public ResponseEntity<List<SuperAdmin>> getAllSuperAdmins() {
         List<SuperAdmin> superAdmins = superAdminService.findAllSuperAdmins();
@@ -35,7 +32,6 @@ public class SuperAdminController {
     }
 
     // Get SuperAdmin by ID
-    @RequiresPermissions
     @GetMapping("/{id}")
     public ResponseEntity<SuperAdmin> getSuperAdminById(@PathVariable Long id) {
         SuperAdmin superAdmin = superAdminService.findSuperAdminById(id);
@@ -47,7 +43,6 @@ public class SuperAdminController {
     }
 
     // Update SuperAdmin
-    @RequiresPermissions
     @PutMapping("/{id}")
     public ResponseEntity<SuperAdmin> updateSuperAdmin(@PathVariable Long id, @RequestBody SuperAdmin superAdmin) {
         SuperAdmin updatedSuperAdmin = superAdminService.updateSuperAdmin(id, superAdmin);
@@ -55,7 +50,6 @@ public class SuperAdminController {
     }
 
     // Delete SuperAdmin
-    @RequiresPermissions
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSuperAdmin(@PathVariable Long id) {
         superAdminService.deleteSuperAdmin(id);

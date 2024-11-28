@@ -24,9 +24,14 @@ public class Etablissement {
     @Column(nullable = false, length = 50)
     private String universite;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
     private List<Departement> ListDepartement;
+    @JsonIgnore
+    @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
+    private List<AdminEtablissement> AdminEtablissements;
+
+
 
 }
 
