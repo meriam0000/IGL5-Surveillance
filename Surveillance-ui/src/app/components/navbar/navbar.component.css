@@ -1,0 +1,26 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+  }
+  .navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .navbar .search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+    padding: 5px;
+  }
+  .navbar .user-profile {
+    display: flex;
+    align-items: center;
+  }
+  .navbar .profile-avatar {
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  

@@ -1,0 +1,88 @@
+<div class="container mx-auto px-4 py-6">
+    <!-- Welcome Header -->
+    <header class="text-3xl font-bold text-center mb-6">
+      <h1>Welcome to your SuperAdmin Dashboard</h1>
+    </header>
+
+    <!-- Dashboard Overview Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-xl font-semibold">Enseignants</h3>
+        <p class="text-3xl font-bold">17</p>
+        <p class="text-gray-500">Available Teachers</p>
+      </div>
+
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-xl font-semibold">Total Hours</h3>
+        <p class="text-3xl font-bold">430h</p>
+        <p class="text-gray-500">Surveillance Hours</p>
+      </div>
+
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-xl font-semibold">Students</h3>
+        <p class="text-3xl font-bold">7000</p>
+        <p class="text-gray-500">Total Students</p>
+      </div>
+    </div>
+
+    <!-- Repartition and Graphs Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Repartition des Etudiants (Pie Chart) -->
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-xl font-semibold mb-4">Répartition des Étudiants</h3>
+        <!-- Pie Chart -->
+        <div style="display: block;">
+          <canvas id="studentDistributionChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Total Hours Surveilled (Bar Chart) -->
+      <div class="bg-white p-6 shadow rounded-lg">
+        <h3 class="text-xl font-semibold mb-4">Total Hours Surveilled</h3>
+        <!-- Bar Chart -->
+        <div style="display: block;">
+          <canvas id="surveillanceHoursChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- History of Surveillance Table -->
+    <div class="bg-white p-6 shadow rounded-lg">
+      <h3 class="text-xl font-semibold mb-4">Historique de Surveillance</h3>
+      <table class="min-w-full table-auto">
+        <thead>
+          <tr class="border-b">
+            <th class="py-2 px-4">ID</th>
+            <th class="py-2 px-4">Enseignant</th>
+            <th class="py-2 px-4">Département</th>
+            <th class="py-2 px-4">Classes</th>
+            <th class="py-2 px-4">N° Heures</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b">
+            <td class="py-2 px-4">7</td>
+            <td class="py-2 px-4">Smith John</td>
+            <td class="py-2 px-4">Informatique</td>
+            <td class="py-2 px-4">5</td>
+            <td class="py-2 px-4">42H</td>
+          </tr>
+          <tr class="border-b">
+            <td class="py-2 px-4">6</td>
+            <td class="py-2 px-4">Smith John</td>
+            <td class="py-2 px-4">Informatique</td>
+            <td class="py-2 px-4">3</td>
+            <td class="py-2 px-4">42H</td>
+          </tr>
+          <tr class="border-b">
+            <td class="py-2 px-4">5</td>
+            <td class="py-2 px-4">Smith John</td>
+            <td class="py-2 px-4">Chimie</td>
+            <td class="py-2 px-4">6</td>
+            <td class="py-2 px-4">56H</td>
+          </tr>
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+</div>
