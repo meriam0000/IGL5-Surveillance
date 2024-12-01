@@ -1,12 +1,15 @@
 package com.example.Surveillance.Services;
 
 import com.example.Surveillance.Dtos.DepartementDto;
-import com.example.Surveillance.Util.PageResponse;
+import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 
 public interface DepartementService {
 
-    PageResponse<DepartementDto> getAllDepartements(int page , int size);
+    List<DepartementDto> getAllDepartements( Authentication authentication);
+
 
     DepartementDto addDepartement(DepartementDto departementDto);
 

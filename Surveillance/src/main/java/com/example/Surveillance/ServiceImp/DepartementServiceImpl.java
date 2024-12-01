@@ -1,18 +1,18 @@
 package com.example.Surveillance.ServiceImp;
 
 import com.example.Surveillance.Dtos.DepartementDto;
-import com.example.Surveillance.Entities.Departement;
-import com.example.Surveillance.Entities.Enseignant;
-import com.example.Surveillance.Entities.Etablissement;
+import com.example.Surveillance.Entities.*;
+import com.example.Surveillance.Entities.user.Permission;
+import com.example.Surveillance.Entities.user.User;
+import com.example.Surveillance.Exception.ForbiddenException;
+import com.example.Surveillance.Exception.ResourceNotFoundException;
 import com.example.Surveillance.Repositories.DepartementRepository;
 import com.example.Surveillance.Services.DepartementService;
-import com.example.Surveillance.Util.PageResponse;
-import jakarta.persistence.EntityNotFoundException;
+
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,48 +21,57 @@ import java.util.List;
 @AllArgsConstructor
 public class DepartementServiceImpl  implements DepartementService {
     final DepartementRepository departeementRepository;
+
     final ModelMapper modelMapper;
 
+
+
     @Override
-    public PageResponse<DepartementDto> getAllDepartements(int page , int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public List<DepartementDto> getAllDepartements( Authentication authentication){
 
-        // Fetch paginated data from the repository
-        Page<Departement> departementPage = departeementRepository.findAll(pageable);
+        User user = ((User) authentication.getPrincipal());
+        if( user.getRole().getPermissions().contains(Permission.SUPERADMIN_READ)){
+            return departeementRepository.findAll()
+                    .stream()
+                    .map(departement -> modelMapper.map(departement,DepartementDto.class))
+                    .toList();
+        } else if (user.getRole().getPermissions().contains(Permission.ADMIN_DEPARTEMENT_READ)){
+            AdminDepartement adminDepartement = (AdminDepartement) user;
+            return List.of(modelMapper
+                    .map(adminDepartement.getDepartement(),DepartementDto.class));
 
-        // Map entities to DTOs
-        List<DepartementDto> departementDtoList = departementPage.getContent()
-                .stream()
-                .map(departement -> modelMapper.map(departement,DepartementDto.class))
-                .toList();
 
-        // Create and return a PageResponse object
-        return new PageResponse<>(
-                departementDtoList,
-                departementPage.getNumber(),
-                departementPage.getSize(),
-                departementPage.getTotalElements(),
-                departementPage.getTotalPages(),
-                departementPage.isFirst(),
-                departementPage.isLast()
-        );
+        } else if(user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_READ)){
+            AdminEtablissement adminEtablissement = (AdminEtablissement) user;
+            List<Departement> departementList=adminEtablissement.getEtablissement().getListDepartement();
+            return
+                    departementList
+                    .stream()
+                    .map(departement -> modelMapper.map(departement,DepartementDto.class))
+                    .toList();
+        }
+        throw new ForbiddenException("User does not have permission to view departments");
+
     }
+
+
 
     @Override
     public DepartementDto addDepartement(DepartementDto departementDto) {
+
         return modelMapper.map(departeementRepository.save(modelMapper.map(departementDto, Departement.class)), DepartementDto.class);
     }
 
     @Override
     public DepartementDto getDepartementById(Long id) {
-        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Departement found with ID:"+id));
+        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Departement found with ID:"+id));
         return modelMapper.map(departement, DepartementDto.class);
     }
 
     @Override
     public DepartementDto updateDepartement(Long id, DepartementDto departementDto) {
 
-        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Departement found with ID:"+id));
+        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Departement found with ID:"+id));
         departement.setNom(departementDto.getNom());
         departement.setId(departement.getId());
         departement.setEnseignants(

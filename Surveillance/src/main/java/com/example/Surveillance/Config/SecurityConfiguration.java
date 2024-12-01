@@ -50,25 +50,6 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
                         .requestMatchers(WHITE_LIST_URL).permitAll()
-
-                        // Management endpoints for SuperAdmin and AdminEtablissement
-                        .requestMatchers("/api/v1/management/**").hasAnyRole("SUPERADMIN", "ADMIN_ETABLISSEMENT")
-                        .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(
-                                "SUPERADMIN_READ", "ADMIN_ETABLISSEMENT_READ")
-                        .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(
-                                "SUPERADMIN_CREATE", "ADMIN_ETABLISSEMENT_CREATE")
-                        .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(
-                                "SUPERADMIN_UPDATE", "ADMIN_ETABLISSEMENT_UPDATE")
-                        .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(
-                                "SUPERADMIN_DELETE", "ADMIN_ETABLISSEMENT_DELETE")
-
-                        // Department endpoints for AdminDepartement
-                        .requestMatchers("/api/v1/departments/**").hasRole("ADMIN_DEPARTEMENT")
-                        .requestMatchers(GET, "/api/v1/departments/**").hasAuthority("ADMIN_DEPARTEMENT_READ")
-                        .requestMatchers(POST, "/api/v1/departments/**").hasAuthority("ADMIN_DEPARTEMENT_CREATE")
-                        .requestMatchers(PUT, "/api/v1/departments/**").hasAuthority("ADMIN_DEPARTEMENT_UPDATE")
-                        .requestMatchers(DELETE, "/api/v1/departments/**").hasAuthority("ADMIN_DEPARTEMENT_DELETE")
-
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))

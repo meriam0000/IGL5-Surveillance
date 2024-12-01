@@ -1,11 +1,13 @@
 package com.example.Surveillance.Services;
 
 import com.example.Surveillance.Dtos.EtablissementDto;
-import com.example.Surveillance.Util.PageResponse;
+import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 
 public interface EtablissementService {
-    PageResponse<EtablissementDto> getAllEtablissement(int page , int size);
+    List<EtablissementDto> getAllEtablissement(Authentication authentication);
 
     EtablissementDto addEtablissement(EtablissementDto etablissementDto);
 

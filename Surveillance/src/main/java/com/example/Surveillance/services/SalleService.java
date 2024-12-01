@@ -3,12 +3,14 @@ package com.example.Surveillance.Services;
 
 
 import com.example.Surveillance.Dtos.SalleDto;
-import com.example.Surveillance.Util.PageResponse;
+import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 public interface SalleService {
     SalleDto addSalle(SalleDto salleDto);
     SalleDto getSalleById(Long id);
     SalleDto updateSalle(Long id, SalleDto salleDto);
-    PageResponse<SalleDto> getAllSalles(int page, int size);
+    List<SalleDto> getAllSalles(Authentication authentication);
     void deleteSalle(Long id);
 }

@@ -2,9 +2,9 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.SalleDto;
 import com.example.Surveillance.Services.SalleService;
-import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +18,8 @@ public class SalleController {
     final private SalleService salleService;
 
     @GetMapping
-    public ResponseEntity<PageResponse<SalleDto>> findAll(@RequestParam int page, @RequestParam int size) {
-        PageResponse<SalleDto> salles = salleService.getAllSalles(page,size);
+    public ResponseEntity<List<SalleDto>> findAll(Authentication authentication) {
+        List<SalleDto> salles = salleService.getAllSalles(authentication);
         return ResponseEntity.ok(salles);
     }
     @PostMapping

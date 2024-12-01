@@ -2,11 +2,13 @@ package com.example.Surveillance.Services;
 
 
 import com.example.Surveillance.Dtos.EnseignantDto;
-import com.example.Surveillance.Util.PageResponse;
+import org.springframework.security.core.Authentication;
+
+import java.util.List;
 
 
 public interface EnseignantService {
-    PageResponse<EnseignantDto> getAllEnseignants( int page, int size);
+    List<EnseignantDto> getAllEnseignants(Authentication authentication);
 
     EnseignantDto addEnseignant(EnseignantDto enseignantDto);
 

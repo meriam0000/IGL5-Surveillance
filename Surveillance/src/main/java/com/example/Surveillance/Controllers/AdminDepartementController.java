@@ -26,7 +26,6 @@ public class AdminDepartementController {
     }
 
     // Get All AdminDepartements
-
     @GetMapping
     public ResponseEntity<List<AdminDepartement>> getAllAdminDepartements() {
         List<AdminDepartement> adminDepartements = adminDepartementService.findAllAdminDepartements();
@@ -34,7 +33,6 @@ public class AdminDepartementController {
     }
 
     // Get AdminDepartement by ID
-
     @GetMapping("/{id}")
     public ResponseEntity<AdminDepartement> getAdminDepartementById(@PathVariable Long id) {
         AdminDepartement adminDepartement = adminDepartementService.findAdminDepartementById(id);
@@ -46,7 +44,6 @@ public class AdminDepartementController {
     }
 
     // Update AdminDepartement
-
     @PutMapping("/{id}")
     public ResponseEntity<AdminDepartement> updateAdminDepartement(@PathVariable Long id, @RequestBody AdminDepartement adminDepartement) {
         AdminDepartement updatedAdminDepartement = adminDepartementService.updateAdminDepartement(id, adminDepartement);
@@ -54,7 +51,6 @@ public class AdminDepartementController {
     }
 
     // Delete AdminDepartement
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAdminDepartement(@PathVariable Long id) {
         adminDepartementService.deleteAdminDepartement(id);

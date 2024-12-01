@@ -1,88 +1,163 @@
 <div class="container mx-auto px-4 py-6">
-    <!-- Welcome Header -->
-    <header class="text-3xl font-bold text-center mb-6">
-      <h1>Welcome to your SuperAdmin Dashboard</h1>
-    </header>
+  <h1 class="text-3xl font-bold mb-4">Welcome to your SuperAdmin Dashboard</h1>
 
-    <!-- Dashboard Overview Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-white p-6 shadow rounded-lg">
-        <h3 class="text-xl font-semibold">Enseignants</h3>
-        <p class="text-3xl font-bold">17</p>
-        <p class="text-gray-500">Available Teachers</p>
+  <div class="mb-6">
+    <select class="w-full md:w-64 p-2 border rounded">
+      <option>Session Principale: 1ère Semestre 2024 - 2025</option>
+    </select>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-xl font-semibold mb-2">Enseignants</h3>
+      <p>17 Enseignants Disponibles</p>
+      <p>32 Matières non Planifiés</p>
+      <p>9 salles inutilisées</p>
+      <a href="#" class="text-blue-500 hover:underline mt-2 inline-block">Gestion de surveillance</a>
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-xl font-semibold">Total d'heures surveillés</h3>
+        <select class="p-1 border rounded text-sm">
+          <option>14 Jours</option>
+        </select>
       </div>
-
-      <div class="bg-white p-6 shadow rounded-lg">
-        <h3 class="text-xl font-semibold">Total Hours</h3>
-        <p class="text-3xl font-bold">430h</p>
-        <p class="text-gray-500">Surveillance Hours</p>
-      </div>
-
-      <div class="bg-white p-6 shadow rounded-lg">
-        <h3 class="text-xl font-semibold">Students</h3>
-        <p class="text-3xl font-bold">7000</p>
-        <p class="text-gray-500">Total Students</p>
+      <p class="text-3xl font-bold text-blue-500 mb-4">430h</p>
+      <div class="w-1/2">
+        <canvas id="surveillanceHoursChart"></canvas>
       </div>
     </div>
 
-    <!-- Repartition and Graphs Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-      <!-- Repartition des Etudiants (Pie Chart) -->
-      <div class="bg-white p-6 shadow rounded-lg">
-        <h3 class="text-xl font-semibold mb-4">Répartition des Étudiants</h3>
-        <!-- Pie Chart -->
-        <div style="display: block;">
-          <canvas id="studentDistributionChart"></canvas>
+    <div class="bg-white p-6 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-xl font-semibold">Répartition des Etudiants</h3>
+        <select class="p-1 border rounded text-sm">
+          <option>Département</option>
+        </select>
+      </div>
+      <div class="w-1/2">
+
+        <canvas id="studentDistributionChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <div class="bg-white p-6 rounded-lg shadow">
+      <div class="flex justify-between items-center mb-2">
+        <h3 class="text-xl font-semibold">Répartition des Enseignants</h3>
+        <select class="p-1 border rounded text-sm">
+          <option>Département</option>
+        </select>
+      </div>
+      <div class="flex">
+        <div class="w-1/2">
+          <canvas id="teacherDistributionChart"></canvas>
         </div>
       </div>
-
-      <!-- Total Hours Surveilled (Bar Chart) -->
-      <div class="bg-white p-6 shadow rounded-lg">
-        <h3 class="text-xl font-semibold mb-4">Total Hours Surveilled</h3>
-        <!-- Bar Chart -->
-        <div style="display: block;">
-          <canvas id="surveillanceHoursChart"></canvas>
+    </div>
+    <div class="bg-white">
+      <div class="bg-white p-6 rounded-lg shadow">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold">Historique de Surveillance</h3>
+          <div class="flex space-x-2">
+            <button class="p-1 hover:bg-gray-100 rounded">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"></path>
+              </svg>
+            </button>
+            <button class="p-1 hover:bg-gray-100 rounded">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z">
+                </path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <table class="min-w-full">
+          <thead>
+            <tr class="border-b">
+              <th class="text-left py-2 px-4">ID</th>
+              <th class="text-left py-2 px-4">Enseignant</th>
+              <th class="text-left py-2 px-4">Département</th>
+              <th class="text-left py-2 px-4">Classes</th>
+              <th class="text-left py-2 px-4">N° Heures</th>
+              <th class="text-left py-2 px-4"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b">
+              <td class="py-2 px-4">7</td>
+              <td class="py-2 px-4">Smith John</td>
+              <td class="py-2 px-4">Informatique</td>
+              <td class="py-2 px-4">5</td>
+              <td class="py-2 px-4 text-blue-500">42H</td>
+              <td class="py-2 px-4">
+                <button class="text-gray-400 hover:text-gray-600">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                    </path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-2 px-4">6</td>
+              <td class="py-2 px-4">Smith John</td>
+              <td class="py-2 px-4">Informatique</td>
+              <td class="py-2 px-4">3</td>
+              <td class="py-2 px-4 text-blue-500">42H</td>
+              <td class="py-2 px-4">
+                <button class="text-gray-400 hover:text-gray-600">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                    </path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr class="border-b">
+              <td class="py-2 px-4">5</td>
+              <td class="py-2 px-4">Smith John</td>
+              <td class="py-2 px-4">Chimie</td>
+              <td class="py-2 px-4">6</td>
+              <td class="py-2 px-4 text-green-500">56H</td>
+              <td class="py-2 px-4">
+                <button class="text-gray-400 hover:text-gray-600">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z">
+                    </path>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="flex justify-between items-center mt-4 text-sm text-gray-500">
+          <div>Previous</div>
+          <div>1-1 of 7</div>
+          <div>Next</div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- History of Surveillance Table -->
-    <div class="bg-white p-6 shadow rounded-lg">
-      <h3 class="text-xl font-semibold mb-4">Historique de Surveillance</h3>
-      <table class="min-w-full table-auto">
-        <thead>
-          <tr class="border-b">
-            <th class="py-2 px-4">ID</th>
-            <th class="py-2 px-4">Enseignant</th>
-            <th class="py-2 px-4">Département</th>
-            <th class="py-2 px-4">Classes</th>
-            <th class="py-2 px-4">N° Heures</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b">
-            <td class="py-2 px-4">7</td>
-            <td class="py-2 px-4">Smith John</td>
-            <td class="py-2 px-4">Informatique</td>
-            <td class="py-2 px-4">5</td>
-            <td class="py-2 px-4">42H</td>
-          </tr>
-          <tr class="border-b">
-            <td class="py-2 px-4">6</td>
-            <td class="py-2 px-4">Smith John</td>
-            <td class="py-2 px-4">Informatique</td>
-            <td class="py-2 px-4">3</td>
-            <td class="py-2 px-4">42H</td>
-          </tr>
-          <tr class="border-b">
-            <td class="py-2 px-4">5</td>
-            <td class="py-2 px-4">Smith John</td>
-            <td class="py-2 px-4">Chimie</td>
-            <td class="py-2 px-4">6</td>
-            <td class="py-2 px-4">56H</td>
-          </tr>
-          <!-- Add more rows as needed -->
-        </tbody>
-      </table>
-    </div>
+
 </div>

@@ -3,11 +3,14 @@ package com.example.Surveillance.Controllers;
 
 import com.example.Surveillance.Dtos.EtablissementDto;
 import com.example.Surveillance.Services.EtablissementService;
-import com.example.Surveillance.Util.PageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -16,10 +19,10 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class EtablissementController {
     final private EtablissementService etablissementService;
-
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     @GetMapping
-    public ResponseEntity<PageResponse<EtablissementDto>> findAll(@RequestParam int page,@RequestParam int size){
-        PageResponse<EtablissementDto> etablissement = etablissementService.getAllEtablissement(page, size);
+    public ResponseEntity<List<EtablissementDto>> findAll(Authentication authentication) {
+        List<EtablissementDto> etablissement = etablissementService.getAllEtablissement(authentication);
         return ResponseEntity.ok(etablissement);
     }
     @PostMapping

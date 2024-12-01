@@ -1,20 +1,24 @@
 package com.example.Surveillance.ServiceImp;
 
 import com.example.Surveillance.Dtos.EnseignantDto;
+import com.example.Surveillance.Entities.AdminDepartement;
+import com.example.Surveillance.Entities.AdminEtablissement;
 import com.example.Surveillance.Entities.Departement;
 import com.example.Surveillance.Entities.Enseignant;
+import com.example.Surveillance.Entities.user.Permission;
+import com.example.Surveillance.Entities.user.User;
+import com.example.Surveillance.Exception.ForbiddenException;
 import com.example.Surveillance.Repositories.EnseignantRepository;
 import com.example.Surveillance.Services.EnseignantService;
-import com.example.Surveillance.Util.PageResponse;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @AllArgsConstructor
@@ -22,31 +26,35 @@ public class EnseignantServiceImp implements EnseignantService {
     final EnseignantRepository enseignantRepository;
     final ModelMapper modelMapper;
     @Override
-    public PageResponse<EnseignantDto> getAllEnseignants(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public List<EnseignantDto> getAllEnseignants(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        if(user.getRole().getPermissions().contains(Permission.SUPERADMIN_READ)){
+            return enseignantRepository.findAll()
+                    .stream()
+                    .map(enseignant -> modelMapper.map(enseignant, EnseignantDto.class))
+                    .toList();
+        }
+        else if(user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_READ)) {
+            AdminEtablissement adminEtablissement = (AdminEtablissement) user;
+            return adminEtablissement.getEtablissement()
+                    .getListDepartement()
+                    .stream()
+                    .flatMap(departement -> departement.getEnseignants().stream())
+                    .toList().stream().map(enseignant -> modelMapper.map(enseignant, EnseignantDto.class)).toList();
 
-        // Fetch paginated data from the repository
-        Page<Enseignant> enseignantsPage = enseignantRepository.findAll(pageable);
+        }
+        else if(user.getRole().getPermissions().contains(Permission.ADMIN_DEPARTEMENT_READ)){
+            AdminDepartement adminDepartement = (AdminDepartement) user;
+            return adminDepartement.getDepartement().getEnseignants().stream().map(enseignant -> modelMapper.map(enseignant, EnseignantDto.class)).toList();
+        }
+        else {
+            throw new ForbiddenException("User does not have permission to view Enseignants");
+        }
 
-        // Map entities to DTOs
-        List<EnseignantDto> enseignantDtoList = enseignantsPage.getContent()
-                .stream()
-                .map(enseignant -> modelMapper.map(enseignant, EnseignantDto.class))
-                .toList();
 
-        // Create and return a PageResponse object
-        return new PageResponse<>(
-                enseignantDtoList,
-                enseignantsPage.getNumber(),
-                enseignantsPage.getSize(),
-                enseignantsPage.getTotalElements(),
-                enseignantsPage.getTotalPages(),
-                enseignantsPage.isFirst(),
-                enseignantsPage.isLast()
-        );
     }
 
-    @Override
+            @Override
     public EnseignantDto addEnseignant(EnseignantDto enseignantDto) {
         return modelMapper.map(enseignantRepository.save(modelMapper.map(enseignantDto, Enseignant.class)), EnseignantDto.class);
     }

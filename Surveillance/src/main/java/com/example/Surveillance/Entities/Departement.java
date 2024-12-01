@@ -21,7 +21,14 @@ public class Departement {
     @JsonIgnore
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<Enseignant> enseignants;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "etablissement_id")
     private Etablissement etablissement;
+    @JsonIgnore
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<AdminDepartement> AdminDepartements;
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<Salle> salles;
+
 }

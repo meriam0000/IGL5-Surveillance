@@ -26,4 +26,5 @@ public class Salle {
     @JoinColumn(name = "departement_id", nullable = false)
     @JsonBackReference
     private Departement departement;
+
 }
