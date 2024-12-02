@@ -27,7 +27,6 @@ public class Etablissement {
 
     @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
     private List<Departement> ListDepartement;
-    @JsonIgnore
     @OneToMany(mappedBy = "etablissement", cascade = CascadeType.ALL)
     private List<AdminEtablissement> AdminEtablissements;
 

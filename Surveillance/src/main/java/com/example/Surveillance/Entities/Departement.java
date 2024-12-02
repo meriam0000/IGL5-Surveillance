@@ -18,10 +18,8 @@ public class Departement {
     private String nom;
     @Column(nullable= false ,length = 25)
     private String specialité ;
-    @JsonIgnore
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<Enseignant> enseignants;
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "etablissement_id")
     private Etablissement etablissement;
@@ -30,5 +28,7 @@ public class Departement {
     private List<AdminDepartement> AdminDepartements;
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<Salle> salles;
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<Section> sections;
 
 }
