@@ -18,6 +18,6 @@ public interface SuperAdminService {
 
     void deleteSuperAdmin(Long id);
 
-    SuperAdmin getSuperAdminByUsername(String username);
+
 }
 

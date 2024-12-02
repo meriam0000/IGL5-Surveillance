@@ -30,5 +30,7 @@ public class Departement {
     private List<AdminDepartement> AdminDepartements;
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<Salle> salles;
+    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+    private List<Section> Sections;
 
 }

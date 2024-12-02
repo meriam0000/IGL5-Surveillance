@@ -46,7 +46,7 @@ public class SectionServiceImp implements SectionService {
 
         // Update the entity fields
         section.setNom(sectionDto.getNom());
-        section.setDescription(sectionDto.getDescription());
+        section.setSpecialite(sectionDto.getSpecialite());
         section.setDepartement(modelMapper.map(sectionDto.getDepartement(), Section.class).getDepartement());
 
         // Save the updated entity and map to DTO

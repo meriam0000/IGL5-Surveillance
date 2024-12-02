@@ -18,5 +18,5 @@ public interface AdminDepartementService {
 
     void deleteAdminDepartement(Long id);
 
-    AdminDepartement getAdminDepartementByUsername(String username);
+
 }

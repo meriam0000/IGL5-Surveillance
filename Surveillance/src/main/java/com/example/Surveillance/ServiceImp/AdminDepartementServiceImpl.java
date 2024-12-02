@@ -46,10 +46,6 @@ public class AdminDepartementServiceImpl implements AdminDepartementService {
         adminDepartementRepository.deleteById(id);
     }
 
-    @Override
-    public AdminDepartement getAdminDepartementByUsername(String username) {
-        return adminDepartementRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("AdminDepartement with username " + username + " not found"));
-    }
+
 }
 

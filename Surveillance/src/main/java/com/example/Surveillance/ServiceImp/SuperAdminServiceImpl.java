@@ -46,10 +46,6 @@ public class SuperAdminServiceImpl implements SuperAdminService {
         superAdminRepository.deleteById(id);
     }
 
-    @Override
-    public SuperAdmin getSuperAdminByUsername(String username) {
-        return superAdminRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("SuperAdmin with username " + username + " not found"));
-    }
+
 }
 
