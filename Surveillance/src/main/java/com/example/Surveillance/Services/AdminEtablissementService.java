@@ -17,6 +17,6 @@ public interface AdminEtablissementService {
 
     void deleteAdminEtablissement(Long id);
 
-    AdminEtablissement getAdminEtablissementByUsername(String username);
+
 }
 

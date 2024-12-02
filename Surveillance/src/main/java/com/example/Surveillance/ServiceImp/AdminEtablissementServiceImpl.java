@@ -45,9 +45,5 @@ public class AdminEtablissementServiceImpl implements AdminEtablissementService 
         adminEtablissementRepository.deleteById(id);
     }
 
-    @Override
-    public AdminEtablissement getAdminEtablissementByUsername(String username) {
-        return adminEtablissementRepository.findByUsername(username)
-                .orElseThrow(() -> new ResourceNotFoundException("AdminEtablissement with username " + username + " not found"));
-    }
+
 }
