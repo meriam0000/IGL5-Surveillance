@@ -26,17 +26,20 @@ public class EtablissementController {
         return ResponseEntity.ok(etablissement);
     }
     @PostMapping
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     public ResponseEntity<EtablissementDto> addEtablissement(@RequestBody EtablissementDto EtablissementDto) {
         return ResponseEntity.ok(etablissementService.addEtablissement(EtablissementDto));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     public ResponseEntity<EtablissementDto> findById(@PathVariable Long id) {
         EtablissementDto etablissement = etablissementService.getEtablissementById(id);
         return ResponseEntity.ok(etablissement);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     public ResponseEntity<EtablissementDto> UpdateEnseignant(
             @PathVariable Long id,
             @RequestBody EtablissementDto etablissementDto
@@ -45,6 +48,7 @@ public class EtablissementController {
         return ResponseEntity.ok(updatedEtablissement);
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     public ResponseEntity<Void> remove(@PathVariable Long id) {
         etablissementService.deleteEtablissement(id);
         return ResponseEntity.ok().build();
