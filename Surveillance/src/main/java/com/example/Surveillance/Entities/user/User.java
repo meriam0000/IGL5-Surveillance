@@ -2,6 +2,7 @@ package com.example.Surveillance.Entities.user;
 
 import com.example.Surveillance.Entities.Etablissement;
 import com.example.Surveillance.token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,8 +25,8 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String firstname;
     private String FullName;
     private String email;
@@ -34,7 +35,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     private List<Token> tokens;
 
 
@@ -74,4 +75,9 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", firstname='" + firstname + "', fullName='" + FullName + "', email='" + email + "', role=" + role + "}";
+    }
+
 }

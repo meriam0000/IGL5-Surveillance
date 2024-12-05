@@ -1,5 +1,6 @@
 package com.example.Surveillance.Config;
 
+import com.example.Surveillance.Exception.ResourceNotFoundException;
 import com.example.Surveillance.Repositories.UserRepository;
 import com.example.Surveillance.auditing.ApplicationAuditAware;
 import org.modelmapper.ModelMapper;
@@ -23,14 +24,11 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
     private final UserRepository repository;
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
     @Bean
     public UserDetailsService userDetailsService() {
-        return email -> repository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return username -> repository.findByEmail(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Bean
@@ -59,7 +57,4 @@ public class AppConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
-
-
-
 }

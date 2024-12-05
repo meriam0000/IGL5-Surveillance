@@ -51,12 +51,4 @@ public class EnseignantController {
         return ResponseEntity.ok().build();
     }
 
-
-
-
-
-
-
-
-
 }

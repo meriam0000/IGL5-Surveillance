@@ -3,9 +3,11 @@ package com.example.Surveillance.Services;
 
 import com.example.Surveillance.Entities.user.ChangePasswordRequest;
 import com.example.Surveillance.Entities.user.User;
+import com.example.Surveillance.Exception.ResourceNotFoundException;
 import com.example.Surveillance.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,11 @@ public class UserService {
 
         // save the new password
         repository.save(user);
+    }
+    public User getUser(String email) {
+        return repository.findByEmail(email).orElseThrow(
+                () -> new ResourceNotFoundException("User Not Found")
+        );
     }
 }
 
