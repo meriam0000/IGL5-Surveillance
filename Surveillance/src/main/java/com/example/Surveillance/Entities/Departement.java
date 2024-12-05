@@ -23,10 +23,10 @@ public class Departement {
     private List<Enseignant> enseignants;
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "etablissement_id")
-    private Etablissement etablissement;
-    @JsonIgnore
-    @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
+            @JoinColumn(name = "etablissement_id")
+            private Etablissement etablissement;
+            @JsonIgnore
+            @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<AdminDepartement> AdminDepartements;
     @OneToMany(mappedBy = "departement", cascade = CascadeType.ALL)
     private List<Salle> salles;

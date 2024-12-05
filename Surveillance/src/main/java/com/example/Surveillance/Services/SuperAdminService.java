@@ -2,19 +2,19 @@ package com.example.Surveillance.Services;
 
 
 
-import com.example.Surveillance.Entities.SuperAdmin;
+import com.example.Surveillance.Dtos.SuperAdminDto;
 
 import java.util.List;
 
 public interface SuperAdminService {
 
-    SuperAdmin saveSuperAdmin(SuperAdmin superAdmin);
+    SuperAdminDto saveSuperAdmin(SuperAdminDto superAdmin);
 
-    List<SuperAdmin> findAllSuperAdmins();
+    List<SuperAdminDto> findAllSuperAdmins();
 
-    SuperAdmin findSuperAdminById(Long id);
+    SuperAdminDto findSuperAdminById(Long id);
 
-    SuperAdmin updateSuperAdmin(Long id, SuperAdmin superAdmin);
+    SuperAdminDto updateSuperAdmin(Long id, SuperAdminDto superAdmin);
 
     void deleteSuperAdmin(Long id);
 

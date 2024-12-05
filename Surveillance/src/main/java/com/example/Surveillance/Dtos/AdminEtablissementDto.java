@@ -8,13 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminDepartementDto {
+public class AdminEtablissementDto {
     private Integer id;
     private String firstname;
-    private String password;
     private String fullName;
+    private String password;
     private String email;
-    private Role role;
-    private DepartementDto departement;
-
+    private Role role; // Assuming Role is an Enum
+    private EtablissementDto etablissement; // Relationship with EtablissementDto
 }
+

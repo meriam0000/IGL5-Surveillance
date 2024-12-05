@@ -15,41 +15,38 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/adminDepartements")
 @AllArgsConstructor
+
 public class AdminDepartementController {
 
     private final AdminDepartementService adminDepartementService;
 
     // Create AdminDepartement
     @PostMapping
-    public ResponseEntity<AdminDepartement> createAdminDepartement(@RequestBody AdminDepartement adminDepartement) {
-        AdminDepartement createdAdminDepartement = adminDepartementService.saveAdminDepartement(adminDepartement);
+    public ResponseEntity<AdminDepartementDto> createAdminDepartement(@RequestBody AdminDepartementDto adminDepartement) {
+        AdminDepartementDto createdAdminDepartement = adminDepartementService.saveAdminDepartement(adminDepartement);
         return new ResponseEntity<>(createdAdminDepartement, HttpStatus.CREATED);
     }
 
     // Get All AdminDepartements
     @GetMapping
-    public ResponseEntity<List<AdminDepartement>> getAllAdminDepartements() {
-        List<AdminDepartement> adminDepartements = adminDepartementService.findAllAdminDepartements();
+    public ResponseEntity<List<AdminDepartementDto>> getAllAdminDepartements() {
+        List<AdminDepartementDto> adminDepartements = adminDepartementService.findAllAdminDepartements();
         return new ResponseEntity<>(adminDepartements, HttpStatus.OK);
     }
 
     // Get AdminDepartement by ID
     @GetMapping("/{id}")
-    public ResponseEntity<AdminDepartement> getAdminDepartementById(@PathVariable Long id) {
-        AdminDepartement adminDepartement = adminDepartementService.findAdminDepartementById(id);
-        if (adminDepartement != null) {
-            return new ResponseEntity<>(adminDepartement, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<AdminDepartementDto> getAdminDepartementById(@PathVariable Long id) {
+        AdminDepartementDto adminDepartement = adminDepartementService.findAdminDepartementById(id);
+       return new ResponseEntity<>(adminDepartement, HttpStatus.OK);
     }
 
     // Update AdminDepartement
     @PutMapping("/{id}")
-    public ResponseEntity<AdminDepartement> updateAdminDepartement(
+    public ResponseEntity<AdminDepartementDto> updateAdminDepartement(
             @PathVariable Long id,
-            @RequestBody AdminDepartement adminDepartementDto) {
-        AdminDepartement updatedAdminDepartement = adminDepartementService.updateAdminDepartement(id, adminDepartementDto);
+            @RequestBody AdminDepartementDto adminDepartementDto) {
+        AdminDepartementDto updatedAdminDepartement = adminDepartementService.updateAdminDepartement(id, adminDepartementDto);
         return new ResponseEntity<>(updatedAdminDepartement, HttpStatus.OK);
     }
 

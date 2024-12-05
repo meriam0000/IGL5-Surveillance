@@ -3,19 +3,18 @@ package com.example.Surveillance.Services;
 
 
 import com.example.Surveillance.Dtos.AdminDepartementDto;
-import com.example.Surveillance.Entities.AdminDepartement;
 
 import java.util.List;
 
 public interface AdminDepartementService {
 
-    AdminDepartement saveAdminDepartement(AdminDepartement adminDepartement);
+    AdminDepartementDto saveAdminDepartement(AdminDepartementDto adminDepartement);
 
-    List<AdminDepartement> findAllAdminDepartements();
+    List<AdminDepartementDto> findAllAdminDepartements();
 
-    AdminDepartement findAdminDepartementById(Long id);
+    AdminDepartementDto findAdminDepartementById(Long id);
 
-    AdminDepartement updateAdminDepartement(Long id, AdminDepartement adminDepartement);
+    AdminDepartementDto updateAdminDepartement(Long id, AdminDepartementDto adminDepartement);
 
     void deleteAdminDepartement(Long id);
 
