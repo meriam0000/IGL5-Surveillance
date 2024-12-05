@@ -46,7 +46,9 @@ public class SectionServiceImp implements SectionService {
 
         // Update the entity fields
         section.setNom(sectionDto.getNom());
+        section.setNiveau(sectionDto.getNiveau());
         section.setSpecialite(sectionDto.getSpecialite());
+        section.setNb_etudiants(sectionDto.getNb_etudiants());
         section.setDepartement(modelMapper.map(sectionDto.getDepartement(), Section.class).getDepartement());
 
         // Save the updated entity and map to DTO
@@ -85,7 +87,7 @@ public class SectionServiceImp implements SectionService {
     }
 
     @Override
-    public void deleteSalle(Long id) {
+    public void deleteSection(Long id) {
         // Check if section exists before deleting
         if (!sectionRepository.existsById(id)) {
             throw new EntityNotFoundException("No Section found with ID: " + id);

@@ -11,6 +11,6 @@ public interface SectionService {
     SectionDto getSectionById(Long id);
     SectionDto updateSection(Long id, SectionDto sectionDto);
     List<SectionDto> getAllSections(Authentication authentication);
-    void deleteSalle(Long id);
+    void deleteSection(Long id);
 
 }

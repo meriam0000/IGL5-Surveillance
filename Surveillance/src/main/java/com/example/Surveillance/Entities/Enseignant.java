@@ -1,5 +1,6 @@
 package com.example.Surveillance.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -32,7 +33,7 @@ public class Enseignant {
 
     @Column(name = "nb_heure_surveillance_maximale", nullable = false)
     private int nbHeureSurveillanceMaximale;
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "departement_id")
     private Departement departement;
