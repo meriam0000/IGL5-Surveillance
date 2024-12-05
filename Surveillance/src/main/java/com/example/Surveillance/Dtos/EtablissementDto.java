@@ -1,23 +1,23 @@
-package com.example.Surveillance.Dtos;
+    package com.example.Surveillance.Dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+    import com.fasterxml.jackson.annotation.JsonIgnore;
+    import lombok.Data;
 
-import java.util.List;
-@Data
-public class EtablissementDto {
+    import java.util.List;
+    @Data
+    public class EtablissementDto {
 
-    private Long id;
-
-
-    private String localisation;
+        private Long id;
 
 
-    private String nom;
+        private String localisation;
 
 
-    private String universite;
+        private String nom;
 
-    @JsonIgnore
-    private List<DepartementDto> ListDepartement;
-}
+
+        private String universite;
+
+        @JsonIgnore
+        private List<DepartementDto> ListDepartement;
+    }

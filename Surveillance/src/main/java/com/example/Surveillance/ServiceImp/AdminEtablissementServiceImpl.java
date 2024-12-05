@@ -1,43 +1,58 @@
 package com.example.Surveillance.ServiceImp;
 
+import com.example.Surveillance.Dtos.AdminDepartementDto;
+import com.example.Surveillance.Dtos.AdminEtablissementDto;
 import com.example.Surveillance.Entities.AdminEtablissement;
 import com.example.Surveillance.Exception.ResourceNotFoundException;
 import com.example.Surveillance.Repositories.AdminEtablissementRepository;
 import com.example.Surveillance.Services.AdminEtablissementService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class AdminEtablissementServiceImpl implements AdminEtablissementService {
 
-    @Autowired
-    private AdminEtablissementRepository adminEtablissementRepository;
+
+    private final AdminEtablissementRepository adminEtablissementRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public AdminEtablissement saveAdminEtablissement(AdminEtablissement adminEtablissement) {
-        return adminEtablissementRepository.save(adminEtablissement);
+    public AdminEtablissementDto saveAdminEtablissement(AdminEtablissementDto adminEtablissement) {
+        AdminEtablissement adminEtablissement1= modelMapper.map(adminEtablissement, AdminEtablissement.class);
+        return modelMapper.map(adminEtablissementRepository.save(adminEtablissement1),AdminEtablissementDto.class);
     }
 
     @Override
-    public List<AdminEtablissement> findAllAdminEtablissements() {
-        return adminEtablissementRepository.findAll();
+    public List<AdminEtablissementDto> findAllAdminEtablissements() {
+        return adminEtablissementRepository.findAll()
+                .stream()
+                .map(adminetab -> modelMapper.map(adminetab, AdminEtablissementDto.class))
+                .toList();
     }
 
     @Override
-    public AdminEtablissement findAdminEtablissementById(Long id) {
-        return adminEtablissementRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("AdminEtablissement with id " + id + " not found"));
+    public AdminEtablissementDto findAdminEtablissementById(Long id) {
+        return modelMapper.map(adminEtablissementRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("AdminEtablissementDto with id " + id + " not found")), AdminEtablissementDto.class);
     }
 
     @Override
-    public AdminEtablissement updateAdminEtablissement(Long id, AdminEtablissement adminEtablissement) {
-        AdminEtablissement existing = findAdminEtablissementById(id);
+    public AdminEtablissementDto updateAdminEtablissement(Long id, AdminEtablissementDto adminEtablissement) {
+        AdminEtablissementDto existing = findAdminEtablissementById(id);
         existing.setFullName(adminEtablissement.getFullName());
         existing.setEmail(adminEtablissement.getEmail());
-        // Update other fields as needed
-        return adminEtablissementRepository.save(existing);
+        existing.setEtablissement(adminEtablissement.getEtablissement());
+        existing.setFirstname(adminEtablissement.getFirstname());
+        existing.setPassword(existing.getPassword());
+        existing.setRole(adminEtablissement.getRole());
+
+        AdminEtablissement existing1 = modelMapper.map(existing, AdminEtablissement.class);
+
+        return modelMapper.map(adminEtablissementRepository.save(existing1),AdminEtablissementDto.class);
     }
 
     @Override

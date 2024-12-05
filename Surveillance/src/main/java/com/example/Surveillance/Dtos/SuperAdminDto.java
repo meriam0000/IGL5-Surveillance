@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminDepartementDto {
+public class SuperAdminDto {
     private Integer id;
     private String firstname;
-    private String password;
     private String fullName;
+    private String password;
     private String email;
     private Role role;
-    private DepartementDto departement;
-
 }
+

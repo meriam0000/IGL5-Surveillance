@@ -1,19 +1,19 @@
 package com.example.Surveillance.Services;
 
 
-import com.example.Surveillance.Entities.AdminEtablissement;
+import com.example.Surveillance.Dtos.AdminEtablissementDto;
 
 import java.util.List;
 
 public interface AdminEtablissementService {
 
-    AdminEtablissement saveAdminEtablissement(AdminEtablissement adminEtablissement);
+    AdminEtablissementDto saveAdminEtablissement(AdminEtablissementDto adminEtablissement);
 
-    List<AdminEtablissement> findAllAdminEtablissements();
+    List<AdminEtablissementDto> findAllAdminEtablissements();
 
-    AdminEtablissement findAdminEtablissementById(Long id);
+    AdminEtablissementDto findAdminEtablissementById(Long id);
 
-    AdminEtablissement updateAdminEtablissement(Long id, AdminEtablissement adminEtablissement);
+    AdminEtablissementDto updateAdminEtablissement(Long id, AdminEtablissementDto adminEtablissement);
 
     void deleteAdminEtablissement(Long id);
 

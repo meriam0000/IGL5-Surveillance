@@ -23,9 +23,6 @@ public class DepartementServiceImpl  implements DepartementService {
     final DepartementRepository departeementRepository;
 
     final ModelMapper modelMapper;
-
-
-
     @Override
     public List<DepartementDto> getAllDepartements( Authentication authentication){
 
@@ -69,21 +66,56 @@ public class DepartementServiceImpl  implements DepartementService {
     }
 
     @Override
-    public DepartementDto updateDepartement(Long id, DepartementDto departementDto) {
+    public DepartementDto updateDepartement(Long id, DepartementDto departementDto, Authentication authentication) {
+        // Get the currently authenticated user
+        User user = (User) authentication.getPrincipal();
 
-        Departement departement = departeementRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Departement found with ID:"+id));
+        // Check if the user has SUPERADMIN role (unrestricted access)
+        if (user.getRole().getPermissions().contains(Permission.SUPERADMIN_UPDATE)) {
+            // SUPERADMIN can update any department, no restrictions
+        }
+        // Check if the user has ADMIN_ETABLISSEMENT role
+        else if (user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_UPDATE)) {
+            AdminEtablissement adminEtablissement = (AdminEtablissement) user;
+
+            // Ensure that the department being updated belongs to the same establishment
+            if (!adminEtablissement.getEtablissement().getId().equals(departementDto.getEtablissement().getId())) {
+                throw new ForbiddenException("You are not authorized to update departments outside your establishment.");
+            }
+        }
+        // Check if the user has ADMIN_DEPARTEMENT role
+        else if (user.getRole().getPermissions().contains(Permission.ADMIN_DEPARTEMENT_UPDATE)) {
+            AdminDepartement adminDepartement = (AdminDepartement) user;
+
+            // Ensure that the user is attempting to update the department they are assigned to
+            if (!adminDepartement.getDepartement().getId().equals(id)) {
+                throw new ForbiddenException("You are not authorized to update this department.");
+            }
+        }
+        else {
+            // If the user doesn't have permission, throw an exception
+            throw new ForbiddenException("You do not have permission to update departments.");
+        }
+
+        // Proceed with the department update if all checks pass
+        Departement departement = departeementRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No Departement found with ID:" + id));
+
+        // Map the updated values from departementDto to the departement entity
         departement.setNom(departementDto.getNom());
-        departement.setId(departement.getId());
+        departement.setSpecialité(departementDto.getSpecialité());
         departement.setEnseignants(
                 departementDto.getEnseignants().stream()
                         .map(enseignantDto -> modelMapper.map(enseignantDto, Enseignant.class))
                         .toList()
         );
-        departement.setSpecialité(departementDto.getSpecialité());
-        departement.setEtablissement(modelMapper.map(departementDto.getEtablissement(),Etablissement.class));
+        departement.setEtablissement(modelMapper.map(departementDto.getEtablissement(), Etablissement.class));
 
+        // Save the updated department and return the updated DTO
         return modelMapper.map(departeementRepository.save(departement), DepartementDto.class);
-    }
+}
+
+
 
     @Override
     public void deleteDepartement(Long id) {
