@@ -1,8 +1,10 @@
 package com.example.Surveillance.Controllers;
 
 
+import com.example.Surveillance.Dtos.AdminDepartementDto;
 import com.example.Surveillance.Entities.AdminDepartement;
 import com.example.Surveillance.Services.AdminDepartementService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +14,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/adminDepartements")
+@AllArgsConstructor
 public class AdminDepartementController {
 
-    @Autowired
-    private AdminDepartementService adminDepartementService;
+    private final AdminDepartementService adminDepartementService;
 
     // Create AdminDepartement
-
     @PostMapping
     public ResponseEntity<AdminDepartement> createAdminDepartement(@RequestBody AdminDepartement adminDepartement) {
         AdminDepartement createdAdminDepartement = adminDepartementService.saveAdminDepartement(adminDepartement);
@@ -45,8 +46,10 @@ public class AdminDepartementController {
 
     // Update AdminDepartement
     @PutMapping("/{id}")
-    public ResponseEntity<AdminDepartement> updateAdminDepartement(@PathVariable Long id, @RequestBody AdminDepartement adminDepartement) {
-        AdminDepartement updatedAdminDepartement = adminDepartementService.updateAdminDepartement(id, adminDepartement);
+    public ResponseEntity<AdminDepartement> updateAdminDepartement(
+            @PathVariable Long id,
+            @RequestBody AdminDepartement adminDepartementDto) {
+        AdminDepartement updatedAdminDepartement = adminDepartementService.updateAdminDepartement(id, adminDepartementDto);
         return new ResponseEntity<>(updatedAdminDepartement, HttpStatus.OK);
     }
 
@@ -57,4 +60,5 @@ public class AdminDepartementController {
         return new ResponseEntity<>("AdminDepartement with id " + id + " deleted", HttpStatus.OK);
     }
 }
+
 
