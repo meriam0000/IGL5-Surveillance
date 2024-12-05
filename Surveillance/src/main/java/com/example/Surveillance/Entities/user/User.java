@@ -1,6 +1,5 @@
 package com.example.Surveillance.Entities.user;
 
-import com.example.Surveillance.Entities.Etablissement;
 import com.example.Surveillance.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
