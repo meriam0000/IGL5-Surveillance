@@ -2,7 +2,6 @@ package com.example.Surveillance.Dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
 import java.util.List;
 @Data
 public class DepartementDto {

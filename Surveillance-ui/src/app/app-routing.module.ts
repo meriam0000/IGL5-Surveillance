@@ -3,8 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {ListeEnseignantsComponent} from "./pages/liste-enseignants/liste-enseignants.component";
-import { UserManagementComponent } from './pages/user-management/user-management.component';
-import { CrudUsersComponent } from './crud-users/crud-users.component';
+import { CrudUsersComponent } from './pages/crud-users/crud-users.component';
 import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [

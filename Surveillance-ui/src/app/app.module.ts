@@ -12,8 +12,7 @@ import { ChartComponent } from './chart/chart.component';
 import { ListeEnseignantsComponent } from './pages/liste-enseignants/liste-enseignants.component';
 import { NgOptimizedImage } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
-import { CrudUsersComponent } from './crud-users/crud-users.component';
-import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { CrudUsersComponent } from './pages/crud-users/crud-users.component';
 
 // Angular Material Imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,7 +42,6 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     ChartComponent,
     ListeEnseignantsComponent,
     CrudUsersComponent,
-    UserManagementComponent,
     AddUserModalComponent,
     LoginComponent
   ],
