@@ -14,6 +14,7 @@ import { NgOptimizedImage } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CrudUsersComponent } from './crud-users/crud-users.component';
 import { UserManagementComponent } from './pages/user-management/user-management.component';
+import { ActionButtonComponent } from './action-button/action-button.component';
 
 // Angular Material Imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -45,7 +46,8 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     CrudUsersComponent,
     UserManagementComponent,
     AddUserModalComponent,
-    LoginComponent
+    LoginComponent,
+    ActionButtonComponent
   ],
   imports: [
     BrowserModule,

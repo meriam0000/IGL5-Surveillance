@@ -1,0 +1,31 @@
+.action-button {
+  border: solid #D0D5DD 1px;
+  color : white;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-radius: 6px;
+  display:flex;
+  gap:10px;
+  align-items: center;
+  text-transform: capitalize;
+  transition: filter 0.3s ease; /* Add transition for smooth effect */
+}
+.action-button:hover {
+  filter: brightness(92%); /* Dim the background color on hover */
+}
+
+.blue img {
+  filter:invert()
+}
+.red img {
+  filter:invert()
+}
+.green img {
+  filter:invert()
+}
+.white {
+  color:#344054;
+  background-color: white;
+}
