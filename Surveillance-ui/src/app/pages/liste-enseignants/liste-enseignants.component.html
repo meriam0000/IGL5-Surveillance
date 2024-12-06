@@ -3,17 +3,18 @@
   <!-- Header Section -->
   <h1 class="text-3xl font-semibold text-left text-gray-800 mb-6">Liste des Enseignants</h1>
   <div class="flex justify-end space-x-4 mb-4">
-    <button
-      (click)="addEnseignant()"
-      class="px-6 py-2 text-white rounded-md bg-[#0EA5E9] hover:bg-[#0284C7]">
-      Ajouter
-    </button>
-
-    <button
-      (click)="deleteSelected()"
-      class="px-6 py-2 bg-[#E51B00] text-white rounded-md hover:bg-red-700">
-      Supprimer
-    </button>
+    <app-action-button
+      [bgColor]="'blue'"
+      [svgSrc]="'assets/plus-lg.svg'"
+      [text]="'ajouter'"
+      (buttonClick)="addEnseignant()">
+    </app-action-button>
+    <app-action-button
+      [bgColor]="'red'"
+      [svgSrc]="'assets/trash.svg'"
+      [text]="'supprimer'"
+      (buttonClick)="deleteSelected()">
+    </app-action-button>
     <button
       class="text-custom-blue flex items-center space-x-2"
       (click)="toggleFilterDropdown()">
