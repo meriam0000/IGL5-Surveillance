@@ -1,0 +1,193 @@
+
+<div class="p-6">
+  <!-- Header Section -->
+  <h1 class="text-3xl font-semibold text-left text-gray-800 mb-6">Liste des Salles</h1>
+  <div class="flex justify-end space-x-4 mb-4">
+    <button
+      (click)="addSalle()"
+      class="px-6 py-2 text-white rounded-md bg-[#0EA5E9] hover:bg-[#0284C7]">
+      Ajouter
+    </button>
+
+    <button
+      (click)="deleteSelected()"
+      class="px-6 py-2 bg-[#E51B00] text-white rounded-md hover:bg-red-700">
+      Supprimer
+    </button>
+    <button
+      class="text-custom-blue flex items-center space-x-2"
+      (click)="toggleFilterDropdown()">
+      <img src="assets/filter.png" alt="Filter Icon" class="w-5 h-5">
+      <!-- Dropdown Arrow -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+    </button>
+      <div class="relative mb-4 flex justify-end">
+        <div
+          *ngIf="filterDropdownOpen"
+          class="absolute right-0 mt-2 w-64 bg-white border rounded shadow-lg z-10">
+          <div class="p-4">
+            <label class="block mb-2 text-sm font-medium">Filtrer par Nom:</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.nom"
+              placeholder="Entrer Nom Salle"
+              class="w-full border rounded px-3 py-2 text-sm">
+          </div>
+          <div class="p-4">
+            <label class="block mb-2 text-sm font-medium">Filtrer par Capacité:</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.capacite"
+              placeholder="Entrer capacite"
+              class="w-full border rounded px-3 py-2 text-sm">
+          </div>
+          <div class="p-4">
+            <label class="block mb-2 text-sm font-medium">Filtrer par Département:</label>
+            <select
+              [(ngModel)]="filters.departement"
+              class="w-full border rounded px-3 py-2 text-sm">
+              <option value="">Tous les départements</option>
+              <option *ngFor="let departement of departements" [value]="departement.id">
+                {{ departement.nom }}
+              </option>
+            </select>
+          </div>
+          <div class="p-4">
+            <label class="block mb-2 text-sm font-medium">Filtrer par etablissement:</label>
+            <select
+              [(ngModel)]="filters.etablissement"
+              class="w-full border rounded px-3 py-2 text-sm">
+              <option value="">Tous les etablissements</option>
+              <option *ngFor="let etablissement of etablissements" [value]="etablissement.id">
+                {{ etablissement.nom }}
+              </option>
+            </select>
+          </div>
+
+          <div class="p-4">
+            <label class="block mb-2 text-sm font-medium">Filtrer par type:</label>
+            <input
+              type="text"
+              [(ngModel)]="filters.type"
+              placeholder="Entrer type"
+              class="w-full border rounded px-3 py-2 text-sm">
+          </div>
+          <button
+            class="bg-[#0EA5E9] text-white px-4 py-2 rounded hover:bg-[#0284C7]"
+            (click)="applyFilters()">
+            Apply Filters
+          </button>
+        </div>
+      </div>
+
+
+
+  </div>
+
+
+
+  <!-- Table Section -->
+  <div class="overflow-x-auto mx-auto">
+    <table class="min-w-full table-auto border-collapse">
+      <thead>
+      <tr class="bg-gray-100">
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">
+          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleSelectAll()" class="form-checkbox">
+        </th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Etablissement</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Département</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Nom</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Type</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Capacité</th>
+        <th class="px-4 py-2 text-left text-sm font-semibold text-gray-700">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let salle of paginatedSalles"
+        [ngClass]="{'bg-blue-200': selectedRow === salle.id}"
+        class="cursor-pointer hover:bg-gray-200"
+        (click)="onRowClick(salle.id)">
+        <td class="px-4 py-2">
+
+          <input type="checkbox" [checked]="selectedSalles.has(salle.id)"
+                 (change)="toggleSelection(salle.id)" class="form-checkbox"
+          >
+        </td>
+        <td class="px-4 py-2 text-sm text-gray-600">{{ salle.departement.etablissement.nom }}</td>
+        <td class="px-4 py-2 text-sm text-gray-600">{{ salle.departement.nom }}</td>
+        <td class="px-4 py-2 text-sm text-gray-600">{{ salle.nom }}</td>
+        <td class="px-4 py-2 text-sm text-gray-600">{{ salle.type }}</td>
+        <td class="px-4 py-2 text-sm text-gray-600">{{ salle.capacite }}</td>
+        <td class="px-4 py-2 text-sm">
+          <div class="flex items-center space-x-2">
+            <button (click)="viewSalle(salle.id)" class="text-[#E51B00] hover:text-blue-700">
+            <i class="fas fa-eye"></i>
+
+            </button>
+            <button (click)="editSalle(salle.id)" class="text-green-500 hover:text-yellow-700">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button (click)="deleteSalle(salle.id)" class="text-red-500 hover:text-red-700">
+             <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Pagination Section -->
+
+
+  <ul  class="pagination flex flex-row  justify-center space-x-4  mt-4 " >
+    <li [ngClass]="{disabled:currentPage === 0}">
+      <a (click)="currentPage!=0 && goToFirstPage()"
+         class="page-link"
+         href="javascript:void(0)"
+         aria-label="Previous"
+      >
+        <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li [ngClass]="{disabled:currentPage === 0}">
+      <a (click)="currentPage!=0 && prevPage()"
+         class="page-link"
+         href="javascript:void(0)"
+         aria-label="Previous">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li
+      *ngFor="let pageIndex of pages"
+      [ngClass]="{ ' font-bold': currentPage === pageIndex }"
+      >
+      <a
+        (click)="goToPage(pageIndex)"
+        href="javascript:void(0)">
+        {{ pageIndex }}
+      </a>
+    </li>
+    <li [ngClass]="{disabled:isLastPage}">
+      <a (click)="!isLastPage && nextPage()"
+      >
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+      </a>
+    </li>
+    <li [ngClass]="{disabled: isLastPage }">
+      <a (click)="!isLastPage && goToLastPage()"
+         class="page-link"
+         href="javascript:void(0)"
+         aria-label="Next"
+      >
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+      </a>
+    </li>
+  </ul>
+
+
+
+
+</div>
