@@ -52,5 +52,10 @@ public class DepartementController {
             departementService.deleteDepartement(id);
             return ResponseEntity.ok().build();
         }
+        @GetMapping("/etablissement/{id}")
+         public ResponseEntity<List<DepartementDto>> findByEtablissementId(@PathVariable Long id) {
+                List<DepartementDto> departements = departementService.getDepartementsByEtablissementId(id);
+                return ResponseEntity.ok(departements);
+          }
 
     }

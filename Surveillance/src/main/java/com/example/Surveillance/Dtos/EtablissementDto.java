@@ -20,4 +20,6 @@
 
         @JsonIgnore
         private List<DepartementDto> ListDepartement;
+        @JsonIgnore
+        private List<EnseignantDto> ListEnseignant;
     }

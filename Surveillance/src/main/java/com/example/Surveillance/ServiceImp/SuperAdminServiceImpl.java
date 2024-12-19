@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import static com.example.Surveillance.Entities.user.Role.SUPERADMIN;
+
 @Service
 @AllArgsConstructor
 public class SuperAdminServiceImpl implements SuperAdminService {
@@ -21,6 +23,7 @@ public class SuperAdminServiceImpl implements SuperAdminService {
 
     @Override
     public SuperAdminDto saveSuperAdmin(SuperAdminDto superAdmin) {
+        superAdmin.setRole(SUPERADMIN);
         SuperAdmin superAdmin1= modelMapper.map(superAdmin, SuperAdmin.class);
         return modelMapper.map(superAdminRepository.save(superAdmin1),SuperAdminDto.class);
     }

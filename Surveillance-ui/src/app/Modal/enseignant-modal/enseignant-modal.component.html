@@ -1,0 +1,85 @@
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50" *ngIf="true">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 max-h-[80vh] overflow-auto">
+    <h2 class="text-2xl font-semibold mb-4">Ajouter un Enseignant</h2>
+    <form (submit)="onSubmit()">
+      <!-- Nom Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Nom</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="text" [(ngModel)]="enseignant.nom" name="nom" required />
+      </div>
+
+      <!-- Prénom Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Prénom</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="text" [(ngModel)]="enseignant.prenom" name="prenom" required />
+      </div>
+
+      <!-- CIN Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">CIN</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="text" [(ngModel)]="enseignant.cin" name="cin" required />
+      </div>
+
+      <!-- Email Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="email" [(ngModel)]="enseignant.email" name="email" required />
+      </div>
+
+      <!-- Numéro de Téléphone Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Numéro de Téléphone</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="text" [(ngModel)]="enseignant.numeroTelephone" name="numeroTelephone" required />
+      </div>
+
+      <!-- Grade Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Grade</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="text" [(ngModel)]="enseignant.grade" name="grade" required />
+      </div>
+
+      <!-- Heures Max Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Heures Max Surveillance</label>
+        <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+               type="number" [(ngModel)]="enseignant.nbHeureSurveillanceMaximale" name="nbHeureSurveillanceMaximale" required />
+      </div>
+      <!-- Etablissement Field -->
+      <div class="mb-4">
+        <label class="block text-sm font-medium text-gray-700">Etablissement</label>
+        <select class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                [(ngModel)]="enseignant.departement.etablissement" name="etablissement" required>
+          <option value="" disabled selected>Sélectionner un etablissement</option>
+          <option *ngFor="let etab of etablissements" [value]="etab.nom">{{ etab.nom }}</option>
+        </select>
+      </div>
+      <!-- Département Field -->
+      <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700">Département</label>
+      <select class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              [(ngModel)]="enseignant.departement" name="departement" required>
+        <option value="" disabled selected>Sélectionner un département</option>
+        <option *ngFor="let departement of departements" [value]="departement.nom">{{ departement.nom }}</option>
+      </select>
+    </div>
+
+
+
+      <div class="flex justify-between mt-4">
+        <button type="submit"
+                class="flex items-center gap-2 px-4 py-2 text-sm bg-[#0EA5E9] text-white rounded-lg shadow-md hover:bg-[#0d94c6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0EA5E9]">
+          Ajouter
+        </button>
+        <button type="button"
+                class="px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                (click)="onClose()">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>

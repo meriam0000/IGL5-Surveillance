@@ -9,8 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
     const token = this.authService.getAccessToken();
-    
-    // If token exists, clone the request and add the Authorization header
+
     if (token) {
       const clonedRequest = request.clone({
         setHeaders: {

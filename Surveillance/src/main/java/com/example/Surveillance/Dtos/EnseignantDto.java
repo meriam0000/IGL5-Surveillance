@@ -13,4 +13,5 @@ public class EnseignantDto {
     private String grade;
     private int nbHeureSurveillanceMaximale;
     private DepartementDto departement;
+    private EtablissementDto etablissement;
 }

@@ -14,4 +14,5 @@ import java.util.List;
 public interface DepartementRepository extends JpaRepository<Departement, Long> {
 
 
+    List<Departement> findAllByEtablissementId(Long id);
 }

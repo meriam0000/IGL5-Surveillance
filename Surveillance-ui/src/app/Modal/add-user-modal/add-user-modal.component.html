@@ -1,0 +1,37 @@
+<div class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50" *ngIf="true">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+      <h2 class="text-2xl font-semibold mb-4">Ajouter un Super Admin</h2>
+      <form (submit)="onSubmit()">
+        <!-- First Name Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Username</label>
+          <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                 type="text" [(ngModel)]="firstName" name="firstName" required />
+        </div>
+
+        <!-- Full Name Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Nom Complet</label>
+          <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                 type="text" [(ngModel)]="fullName" name="fullName" required />
+        </div>
+
+        <!-- Email Field -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <input class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                 type="email" [(ngModel)]="email" name="email" required />
+        </div>
+
+        <div class="flex justify-between mt-4">
+          <button type="submit"
+                  class="flex items-center gap-2 px-4 py-2 text-sm bg-[#0EA5E9] text-white rounded-lg shadow-md hover:bg-[#0d94c6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0EA5E9]">            Ajouter
+          </button>
+          <button type="button"
+                  class="px-4 py-2 bg-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  (click)="onClose()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+

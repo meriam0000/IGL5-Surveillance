@@ -22,12 +22,7 @@ export class CrudUsersComponent implements OnInit {
         name: "SUPERADMIN",
         authorities: ["MANAGE_USERS", "VIEW_DASHBOARD"]
       },
-      authorities: ["MANAGE_USERS", "VIEW_DASHBOARD"],
-      username: "meriam_admin",
-      accountNonExpired: true,
-      accountNonLocked: true,
-      credentialsNonExpired: true,
-      enabled: true
+
     }
   ];
   showModal = false;

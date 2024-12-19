@@ -44,18 +44,18 @@ describe('authGuard', () => {
 
   it('should return true if user is logged in', () => {
     spyOn(authService, 'isLoggedIn').and.returnValue(true);
-    
+
     const canActivateResult = executeGuard(new ActivatedRouteSnapshot(), new RouterStateSnapshot());
-    
+
     expect(canActivateResult).toBeTrue();
     expect(router.navigate).not.toHaveBeenCalled(); // No redirection expected for logged-in users
   });
 
   it('should redirect to /login if user is not logged in', () => {
     spyOn(authService, 'isLoggedIn').and.returnValue(false);
-    
+
     const canActivateResult = executeGuard(new ActivatedRouteSnapshot(), new RouterStateSnapshot());
-    
+
     expect(canActivateResult).toBeFalse();
     expect(router.navigate).toHaveBeenCalledWith(['/login']); // Redirection expected
   });

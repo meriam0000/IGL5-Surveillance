@@ -121,4 +121,12 @@ public class DepartementServiceImpl  implements DepartementService {
     public void deleteDepartement(Long id) {
         departeementRepository.deleteById(id);
     }
+
+    @Override
+    public List<DepartementDto> getDepartementsByEtablissementId(Long id) {
+        return departeementRepository.findAllByEtablissementId(id)
+                .stream()
+                .map(departement -> modelMapper.map(departement, DepartementDto.class))
+                .toList();
+    }
 }

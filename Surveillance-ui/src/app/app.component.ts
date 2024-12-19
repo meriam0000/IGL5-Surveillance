@@ -8,6 +8,7 @@ import { AuthService } from './auth/auth.service'; // Import the AuthService
 })
 export class AppComponent {
   title = 'Surveillance-ui';
+  static API_URL = "http://localhost:8080";
 
   constructor(private authService: AuthService) {}
 

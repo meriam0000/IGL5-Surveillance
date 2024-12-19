@@ -19,4 +19,6 @@ public interface DepartementService {
     DepartementDto updateDepartement(Long id, DepartementDto departementDto, Authentication authentication);
 
     void deleteDepartement(Long id);
+
+    List<DepartementDto> getDepartementsByEtablissementId(Long id);
 }

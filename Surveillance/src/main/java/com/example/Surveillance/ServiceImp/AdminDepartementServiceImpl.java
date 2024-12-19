@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.Surveillance.Entities.user.Role.ADMIN_DEPARTEMENT;
+
 @Service
 @AllArgsConstructor
 public class AdminDepartementServiceImpl implements AdminDepartementService {
@@ -23,6 +25,7 @@ public class AdminDepartementServiceImpl implements AdminDepartementService {
 
     @Override
     public AdminDepartementDto saveAdminDepartement(AdminDepartementDto adminDepartement) {
+        adminDepartement.setRole(ADMIN_DEPARTEMENT);
         AdminDepartement adminDepartement1 = modelMapper.map(adminDepartement, AdminDepartement.class);
         return modelMapper.map(adminDepartementRepository.save(adminDepartement1),AdminDepartementDto.class);
     }

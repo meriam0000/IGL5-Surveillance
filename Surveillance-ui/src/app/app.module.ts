@@ -24,14 +24,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
+import { AddUserModalComponent } from './Modal/add-user-modal/add-user-modal.component';
 import { LoginComponent } from './auth/login/login.component';
+import { ListeSallesComponent } from './pages/liste-salles/liste-salles.component';
 
 // HTTP Imports for JWT Authentication
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
-import { ListeSallesComponent } from './pages/liste-salles/liste-salles.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { EnseignantModalComponent } from './Modal/enseignant-modal/enseignant-modal.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { ListeSallesComponent } from './pages/liste-salles/liste-salles.componen
     CrudUsersComponent,
     AddUserModalComponent,
     LoginComponent,
+    EnseignantModalComponent,
     ListeSallesComponent
+
   ],
   imports: [
     BrowserModule,
@@ -72,6 +76,7 @@ import { ListeSallesComponent } from './pages/liste-salles/liste-salles.componen
       useClass: AuthInterceptor,
       multi: true
     },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })
