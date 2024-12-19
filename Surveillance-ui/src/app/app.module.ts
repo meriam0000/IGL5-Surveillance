@@ -31,6 +31,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './auth/auth.service';
 import { AuthInterceptor } from './auth/auth-interceptor.service';
+import { ListeSallesComponent } from './pages/liste-salles/liste-salles.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
     ListeEnseignantsComponent,
     CrudUsersComponent,
     AddUserModalComponent,
-    LoginComponent
+    LoginComponent,
+    ListeSallesComponent
   ],
   imports: [
     BrowserModule,
