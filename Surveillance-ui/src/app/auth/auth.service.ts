@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
   private apiUrl = 'http://localhost:8080/api/v1/auth/authenticate';  // Backend authentication URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } // HttpClient injected via constructor
 
   // Login method
   login(email: string, password: string): Observable<any> {
