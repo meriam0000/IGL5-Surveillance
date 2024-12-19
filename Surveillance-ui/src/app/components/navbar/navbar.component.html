@@ -1,21 +1,43 @@
-<header class="flex items-center justify-between bg-white shadow-md p-4 text-black fixed top-0 left-0 w-full z-20">
-    <div class="text-xl font-bold">SMS</div>
-    
-    <!-- Search bar -->
-    <input
-      type="text"
-      placeholder="Press to search"
-      class="p-2 rounded-lg border border-gray-300 text-black"
-    />
-    
-    <!-- User profile section -->
-    <div class="flex items-center">
-      <span class="mr-2">SuperAdmin</span>
-      <img
-        src="https://via.placeholder.com/40"
-        alt="Profile Picture"
-        class="w-10 h-10 rounded-full"
-      />
+<header
+  class="flex items-center justify-between bg-white shadow-md p-4 text-black fixed top-0 left-0 w-full z-20">
+  <div class="text-xl font-bold">SMS</div>
+
+  <!-- Search bar -->
+  <input
+    type="text"
+    placeholder="Rechercher..."
+    [formControl]="searchControl"
+    (keyup.enter)="onSearch()"
+    class="p-2 rounded-lg border border-gray-300 text-black" />
+
+  <!-- User profile section -->
+  <div class="flex items-center">
+    <span class="mr-2" *ngIf="isLoggedIn()">SuperAdmin</span>
+    <img
+      src="https://via.placeholder.com/40"
+      alt="Photo de Profil"
+      class="w-10 h-10 rounded-full cursor-pointer"
+      *ngIf="isLoggedIn()"
+      (click)="toggleDropdown()" />
+
+    <!-- Dropdown Menu -->
+    <div *ngIf="isDropdownOpen && isLoggedIn()" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-30">
+      <ul>
+        <li>
+          <a href="#" (click)="logout()" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Se déconnecter</a>
+        </li>
+        <li>
+          <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profil</a>
+        </li>
+      </ul>
     </div>
-  </header>
-  
+
+    <!-- "Créer un compte" and "Se connecter" for not logged in users -->
+    <button *ngIf="!isLoggedIn()" (click)="navigateToLogin()" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+      Créer un compte
+    </button>
+    <button *ngIf="!isLoggedIn()" (click)="navigateToLogin()" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition ml-2">
+      Se connecter
+    </button>
+  </div>
+</header>

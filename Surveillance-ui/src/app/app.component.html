@@ -4,7 +4,7 @@
   <!-- Flex container for sidebar and main content -->
   <div class="flex">
     <!-- Sidebar (take up 1/4 of the width) -->
-    <app-sidebar class="w-64 bg-gray-800 text-white"></app-sidebar>
+    <app-sidebar *ngIf="isLoggedIn()" class="w-64 bg-gray-800 text-white"></app-sidebar>
 
     <!-- Main content area (take up remaining space) -->
     <div class="flex-1 px-6 pt-24">
