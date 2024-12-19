@@ -5,3 +5,14 @@
 /* Add any custom styles here */
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Open Sans", sans-serif; }
+
+.blue {
+  background-color: #0EA5E9;
+}
+.red {
+  background-color: #E51B00;
+}
+.green {
+  background-color: #2A9445;
+}
+
