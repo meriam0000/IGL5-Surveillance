@@ -11,6 +11,7 @@ import com.example.Surveillance.Exception.ForbiddenException;
 import com.example.Surveillance.Repositories.EnseignantRepository;
 import com.example.Surveillance.Services.EnseignantService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
@@ -21,6 +22,7 @@ import java.util.List;
 
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class EnseignantServiceImp implements EnseignantService {
     final EnseignantRepository enseignantRepository;
@@ -55,31 +57,31 @@ public class EnseignantServiceImp implements EnseignantService {
     }
 
             @Override
-    public EnseignantDto addEnseignant(EnseignantDto enseignantDto) {
-        return modelMapper.map(enseignantRepository.save(modelMapper.map(enseignantDto, Enseignant.class)), EnseignantDto.class);
-    }
-    @Override
-    public EnseignantDto getEnseignantById(Long id) {
-        Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Enseignant found with ID:"+id));
-        return modelMapper.map(enseignant, EnseignantDto.class);
-    }
-    @Override
-    public EnseignantDto updateEnseignant(Long id, EnseignantDto enseignantDto) {
-        Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Enseignant found with ID:"+id));
-        enseignant.setNom(enseignantDto.getNom());
-        enseignant.setPrenom(enseignantDto.getPrenom());
-        enseignant.setCin(enseignantDto.getCin());
-        enseignant.setDepartement(modelMapper.map(enseignantDto.getDepartement(), Departement.class));
-        enseignant.setGrade(enseignantDto.getGrade());
-        enseignant.setEmail(enseignantDto.getEmail());
-        enseignant.setNumeroTelephone(enseignantDto.getNumeroTelephone());
-        enseignant.setNbHeureSurveillanceMaximale(enseignantDto.getNbHeureSurveillanceMaximale());
-        return modelMapper.map(enseignantRepository.save(enseignant), EnseignantDto.class);
-    }
-    @Override
-    public void deleteEnseignant(Long id) {
-        enseignantRepository.deleteById(id);
-    }
+            public EnseignantDto addEnseignant(EnseignantDto enseignantDto) {
+                return modelMapper.map(enseignantRepository.save(modelMapper.map(enseignantDto, Enseignant.class)), EnseignantDto.class);
+            }
+            @Override
+            public EnseignantDto getEnseignantById(Long id) {
+                Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Enseignant found with ID:"+id));
+                return modelMapper.map(enseignant, EnseignantDto.class);
+            }
+            @Override
+            public EnseignantDto updateEnseignant(Long id, EnseignantDto enseignantDto) {
+                Enseignant enseignant = enseignantRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No Enseignant found with ID:"+id));
+                enseignant.setNom(enseignantDto.getNom());
+                enseignant.setPrenom(enseignantDto.getPrenom());
+                enseignant.setCin(enseignantDto.getCin());
+                enseignant.setDepartement(modelMapper.map(enseignantDto.getDepartement(), Departement.class));
+                enseignant.setGrade(enseignantDto.getGrade());
+                enseignant.setEmail(enseignantDto.getEmail());
+                enseignant.setNumeroTelephone(enseignantDto.getNumeroTelephone());
+                enseignant.setNbHeureSurveillanceMaximale(enseignantDto.getNbHeureSurveillanceMaximale());
+                return modelMapper.map(enseignantRepository.save(enseignant), EnseignantDto.class);
+            }
+            @Override
+            public void deleteEnseignant(Long id) {
+                enseignantRepository.deleteById(id);
+            }
 
 
 }
