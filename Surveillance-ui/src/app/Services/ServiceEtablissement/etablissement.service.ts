@@ -15,7 +15,7 @@ export class EtablissementService {
 
   // Get all etablissements
   getAllEtablissements(): Observable<etablissement[]> {
-    return this.http.get<etablissement[]>(`${AppComponent.API_URL}${this.apiUrl}`).pipe(
+    return this.http.get<etablissement[]>('http://localhost:8080/api/v1/etablissement').pipe(
       catchError(this.handleError)
     );
 

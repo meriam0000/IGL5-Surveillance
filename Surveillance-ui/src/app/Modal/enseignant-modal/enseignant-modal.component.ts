@@ -3,6 +3,7 @@ import {Enseignant} from "../../Models/enseignant.model";
 import {etablissement} from "../../Models/etablissement.model";
 import {departement} from "../../Models/departement.model";
 import {EtablissementService} from "../../Services/ServiceEtablissement/etablissement.service";
+import {DepartementService} from "../../Services/serviceDepartement/departement.service";
 
 @Component({
   selector: 'app-enseignant-modal',
@@ -24,8 +25,9 @@ export class EnseignantModalComponent implements OnInit {
   ngOnInit(): void {
     this.loadDepartementsByEtablissement();
     this.loadEtablissements();
+    this.loaddepartements()
   }
-  constructor(private etablissementService: EtablissementService) {}
+  constructor(private etablissementService: EtablissementService , private departementService:DepartementService) {}
 
   loadDepartementsByEtablissement() {
 
@@ -94,6 +96,12 @@ export class EnseignantModalComponent implements OnInit {
         next: (data) => (this.etablissements = data),
         error: (err) => (this.error = err.message)
       });
+  }
+  private loaddepartements() {
+    this.departementService.getAllDepartements().subscribe({
+      next: (data) => (this.departements = data),
+      error: (err) => (this.error = err.message)
+    });
   }
 
 

@@ -13,7 +13,8 @@ import java.util.List;
 
 
 @Controller
-@RestController("/api/v1/departement")
+@RestController
+@RequestMapping("/api/v1/departement")
 @AllArgsConstructor
 public class DepartementController {
         final private DepartementService departementService;

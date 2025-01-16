@@ -19,6 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 public class EtablissementController {
     final private EtablissementService etablissementService;
+
+    @RequestMapping(value = "/api/v1/etablissement", method = RequestMethod.OPTIONS)
+    public ResponseEntity<Void> handleOptionsRequest() {
+        return ResponseEntity.ok().build();
+    }
     @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT')")
     @GetMapping
     public ResponseEntity<List<EtablissementDto>> findAll(Authentication authentication) {
