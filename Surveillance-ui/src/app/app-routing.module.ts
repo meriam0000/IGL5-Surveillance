@@ -5,7 +5,7 @@ import { ListeEnseignantsComponent } from './pages/liste-enseignants/liste-ensei
 import { LoginComponent } from './auth/login/login.component';
 import { AuthGuard } from './auth.guard';
 import {CrudUsersComponent} from "./pages/crud-users/crud-users.component";
-import {ListeSallesComponent} from "./pages/liste-salles/liste-salles.component"; // Import the AuthGuard
+import {ListeSallesComponent} from "./pages/liste-salles/liste-salles.component";
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] }, // Protect Dashboard
