@@ -129,4 +129,26 @@ public class DepartementServiceImpl  implements DepartementService {
                 .map(departement -> modelMapper.map(departement, DepartementDto.class))
                 .toList();
     }
+
+    @Override
+    public List<DepartementDto> findDepartementsByEtablissement(Long etablissementId, Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        if (user.getRole().getPermissions().contains(Permission.SUPERADMIN_READ)) {
+            return departeementRepository.findAllByEtablissementId(etablissementId)
+                    .stream()
+                    .map(departement -> modelMapper.map(departement, DepartementDto.class))
+                    .toList();
+        } else if (user.getRole().getPermissions().contains(Permission.ADMIN_ETABLISSEMENT_READ)) {
+            AdminEtablissement adminEtablissement = (AdminEtablissement) user;
+            if (!adminEtablissement.getEtablissement().getId().equals(etablissementId)) {
+                throw new ForbiddenException("You are not authorized to view departments outside your establishment.");
+            }
+            return departeementRepository.findAllByEtablissementId(etablissementId)
+                    .stream()
+                    .map(departement -> modelMapper.map(departement, DepartementDto.class))
+                    .toList();
+        } else {
+            throw new ForbiddenException("You do not have permission to view departments.");
+        }
+    }
 }

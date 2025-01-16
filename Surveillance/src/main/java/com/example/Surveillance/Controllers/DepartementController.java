@@ -19,6 +19,17 @@ import java.util.List;
 public class DepartementController {
         final private DepartementService departementService;
 
+    @GetMapping("/by-etablissement/{etablissementId}")
+    @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT') or hasRole('ADMIN_DEPARTEMENT')")
+    public ResponseEntity<List<DepartementDto>> findByEtablissement(
+            @PathVariable Long etablissementId,
+            Authentication authentication) {
+
+            List<DepartementDto> departements = departementService.findDepartementsByEtablissement(etablissementId, authentication);
+            return ResponseEntity.ok(departements);
+
+    }
+
         @GetMapping
         @PreAuthorize("hasRole('SUPERADMIN') or hasRole('ADMIN_ETABLISSEMENT') or hasRole('ADMIN_DEPARTEMENT')")
         public ResponseEntity<List<DepartementDto>> findAll(Authentication authentication) {
