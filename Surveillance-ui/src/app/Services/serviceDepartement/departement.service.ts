@@ -12,6 +12,10 @@ export class DepartementService {
 
   constructor(private http: HttpClient) {}
 
+  findByEtablissement(etablissementId: number): Observable<departement[]> {
+    const url = `${AppComponent.API_URL}${this.apiUrl}/by-etablissement/${etablissementId}`;
+    return this.http.get<departement[]>(url);
+  }
    // Get all departements
   getAllDepartements(): Observable<departement[]> {
     return this.http.get<departement[]>(`${AppComponent.API_URL}${this.apiUrl}`);

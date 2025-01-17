@@ -2,9 +2,7 @@
   class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50"
   *ngIf="true"
 >
-  <div
-    class="bg-white rounded-lg shadow-lg w-full max-w-2xl flex flex-col"
-  >
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl flex flex-col">
     <!-- Modal Header -->
     <div class="p-4 border-b">
       <h2 class="text-2xl font-semibold text-center">
@@ -14,14 +12,11 @@
 
     <!-- Modal Body -->
     <div class="flex-1 overflow-auto p-6">
-      <form (submit)="onSubmit()">
+      <form >
         <!-- Row 1: Nom and Prénom -->
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label
-              class="block text-sm font-medium text-gray-700"
-              for="nom"
-            >
+            <label class="block text-sm font-medium text-gray-700" for="nom">
               Nom
             </label>
             <input
@@ -34,10 +29,7 @@
             />
           </div>
           <div>
-            <label
-              class="block text-sm font-medium text-gray-700"
-              for="prenom"
-            >
+            <label class="block text-sm font-medium text-gray-700" for="prenom">
               Prénom
             </label>
             <input
@@ -54,10 +46,7 @@
         <!-- Row 2: CIN and Email -->
         <div class="grid grid-cols-2 gap-4 mb-4">
           <div>
-            <label
-              class="block text-sm font-medium text-gray-700"
-              for="cin"
-            >
+            <label class="block text-sm font-medium text-gray-700" for="cin">
               CIN
             </label>
             <input
@@ -70,10 +59,7 @@
             />
           </div>
           <div>
-            <label
-              class="block text-sm font-medium text-gray-700"
-              for="email"
-            >
+            <label class="block text-sm font-medium text-gray-700" for="email">
               Email
             </label>
             <input
@@ -106,10 +92,7 @@
             />
           </div>
           <div>
-            <label
-              class="block text-sm font-medium text-gray-700"
-              for="grade"
-            >
+            <label class="block text-sm font-medium text-gray-700" for="grade">
               Grade
             </label>
             <input
@@ -151,7 +134,8 @@
             <select
               id="etablissement"
               class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              [(ngModel)]="enseignant.departement.etablissement"
+              [(ngModel)]="etablissementId"
+              (change)="onEtablissementChange()"
               name="etablissement"
               required
             >
@@ -160,7 +144,7 @@
               </option>
               <option
                 *ngFor="let etab of etablissements"
-                [value]="etab.nom"
+                [value]="etab.id"
               >
                 {{ etab.nom }}
               </option>
@@ -179,19 +163,16 @@
           <select
             id="departement"
             class="w-full p-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            [(ngModel)]="enseignant.departement"
+            [(ngModel)]="enseignant.departement.id"
             name="departement"
             required
           >
-            <option value="" disabled selected>
-              Sélectionner un département
-            </option>
-            <option
-              *ngFor="let departement of departements"
-              [value]="departement.nom"
-            >
-              {{ departement.nom }}
-            </option>
+          <option value="" disabled selected>
+            Sélectionner un département
+          </option>
+          <option *ngFor="let departement of departements" [value]="departement.id">
+            {{ departement.nom }}
+          </option>
           </select>
         </div>
       </form>
@@ -202,6 +183,7 @@
       <button
         type="submit"
         class="px-4 py-2 bg-[#0EA5E9] text-white rounded-lg shadow-md hover:bg-[#0d94c6] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0EA5E9]"
+        (click)="onSubmit()"
       >
         Ajouter
       </button>

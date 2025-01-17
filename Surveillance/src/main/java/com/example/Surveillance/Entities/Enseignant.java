@@ -25,7 +25,7 @@ public class Enseignant {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "numero_telephone", nullable = false, unique = true, length = 15)
+    @Column(name = "numero_telephone", nullable = false, length = 15)
     private String numeroTelephone;
 
     @Column(nullable = false, length = 50)
